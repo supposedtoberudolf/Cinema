@@ -22,17 +22,13 @@ void orderSummary(int total, int time);
 
 void mode_payment(int *choice
                 , int *amount
-                , int *card
+                , int *cardChoice
                 , int total
-                , int quantity
-                , char card1[]
-                , char card2[]);
+                , int quantity);
 
 void transactionSummaryCASH(int quantity, int total, int amount);
 
-void transactionSummaryCard1(int quantity, int total, char card1[]);
-
-void transactionSummaryCard2(int quantity, int total, char card2[]);
+void transactionSummaryCard(int quantity, int total, char card[2][10], int cardChoice, char card1[]);
 
 int main() {
 
@@ -44,8 +40,9 @@ int main() {
     int total = 0;
     int time = 0;
     int amount = 0;
-    int card = 0;
+    int cardChoice = 0;
 
+    char card[2][10] = {"BPI", "BDO"};
     char card1[] = "BPI";
     char card2[] = "BDO";
 
@@ -88,7 +85,7 @@ int main() {
         printf("\n========== ORDER DETAILS ==========\n");
         printf("\nMovie\t: Spider-Man: Brand New Day");
         orderSummary(total, time);
-        mode_payment(&paymentChoice, &amount, &card, total, quantity, card1, card2);
+        mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
         
         if (paymentChoice == 1)
         {
@@ -100,27 +97,18 @@ int main() {
 
         else if (paymentChoice == 2)
         {
-            if (card == 1)
-            {
-                printf("\n\nPAYMENT SUCCESSFUL!\n");
-                printf("\n========== TRANSACTION DETAILS ==========\n");
-                printf("\nMovie: Spider-Man: Brand New Day");
-                transactionSummaryCard1(quantity, total, card1);
-            }
-            else if (card == 2)
-            {
-                printf("\n\nPAYMENT SUCCESSFUL!\n");
-                printf("\n========== TRANSACTION DETAILS ==========\n");
-                printf("\nMovie: Spider-Man: Brand New Day");
-                transactionSummaryCard2(quantity, total, card2);
-            }
-          
+            
+            printf("\n\nPAYMENT SUCCESSFUL!\n");
+            printf("\n========== TRANSACTION DETAILS ==========\n");
+            printf("\nMovie: Spider-Man: Brand New Day");
+            transactionSummaryCard(quantity, total, card, cardChoice, card1);
+            
         }
         
         break;
     
 
-    case 2:
+    /* case 2:
         header();
         buyTicket(&ticketChoice, &quantity, &total);           
         header();
@@ -280,7 +268,7 @@ int main() {
         
         break;
 
-
+        */
     }
 
 
@@ -374,11 +362,10 @@ void orderSummary(int total, int time)
 
 void mode_payment(int *paymentChoice
                 , int *amount
-                , int *card
+                , int *cardChoice
                 , int total
-                , int quantity
-                , char card1[]
-                , char card2[]) 
+                , int quantity) 
+
 {
     printf("\n\n1. CASH"
            "\n2. CARD"
@@ -410,9 +397,9 @@ void mode_payment(int *paymentChoice
                     "\n\n1. BPI"
                     "\n2. BDO");
             printf("\n\nENTER CARD(1-2): ");
-            scanf("%d", card);
+            scanf("%d", cardChoice);
 
-            while (*card > 2 || *card < 1)
+            while (*cardChoice > 2 || *cardChoice < 1)
             {
                 printf("\nInvalid Input!"
                        "\nPlease Try Again\n");
@@ -420,10 +407,9 @@ void mode_payment(int *paymentChoice
                     "\n\n1. BPI"
                     "\n2. BDO");
             printf("\n\nENTER CARD(1-2): ");
-            scanf("%d", card);
+            scanf("%d", cardChoice);
             }
             
-
         }
         
 }
@@ -435,18 +421,11 @@ void transactionSummaryCASH(int quantity, int total, int amount) {
     printf("\nPAYMENT RECEIVED: PHP %d\n\n", amount);
 }
 
-void transactionSummaryCard1(int quantity, int total, char card1[]) {
+void transactionSummaryCard(int quantity, int total, char card[2][10], int cardChoice, char card1[]) {
     
+    cardChoice--;
     printf("\nTICKET(S)/PACKAGE(S) PURCHASED: %d", quantity);
     printf("\nTOTAL: PHP %d", total);
     printf("\nMODE OF PAYMENT: CARD");
-    printf("\nBANK CARD: %s\n\n", card1);
-}
-
-void transactionSummaryCard2(int quantity, int total, char card2[]) {
-
-    printf("\nTICKET(S)/PACKAGE(S) PURCHASED: %d", quantity);
-    printf("\nTOTAL: PHP %d", total);
-    printf("\nMODE OF PAYMENT: CARD");
-    printf("\nBANK CARD: %s\n\n", card2);
+    printf("\nBANK CARD: %s\n\n", card[cardChoice]);
 }
