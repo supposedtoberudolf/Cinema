@@ -7,6 +7,7 @@
     */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void header();
 
@@ -92,122 +93,26 @@ int main() {
     scanf("%d", &movieChoice);
     }
     
-    switch (movieChoice)
-    {
-    case 1:
-        header();
-        buyTicket(&ticketChoice, &quantity, &total);           
-        header();
-        schedule(&scheduleChoice);
+    header();
 
-        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
-        mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
+    buyTicket(&ticketChoice, &quantity, &total);      
+
+    header();
+
+    schedule(&scheduleChoice);
+
+    orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
+
+    mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
         
-        if (paymentChoice == 1)
-        {
-            transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
-        }
-
-        else if (paymentChoice == 2)
-        {
-            transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
-        }
-        
-        break;
-    
-
-    case 2:
-        header();
-        buyTicket(&ticketChoice, &quantity, &total);           
-        header();
-        schedule(&scheduleChoice);
-
-        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
-        mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
-        
-        if (paymentChoice == 1)
-        {
-            transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
-        }
-
-        else if (paymentChoice == 2)
-        {
-            transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
-        }
-        
-        break;
-
-    case 3:
-        header();
-        buyTicket(&ticketChoice, &quantity, &total);           
-        header();
-        schedule(&scheduleChoice);
-
-        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
-        mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
-        
-        if (paymentChoice == 1)
-        {
-            transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
-        }
-
-        else if (paymentChoice == 2)
-        {
-            transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
-        }
-        
-        break;
-
-    case 4:
-        header();
-        buyTicket(&ticketChoice, &quantity, &total);           
-        header();
-        schedule(&scheduleChoice);
-
-        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
-        mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
-        
-        if (paymentChoice == 1)
-        {
-            transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
-        }
-
-        else if (paymentChoice == 2)
-        {
-            transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
-        }
-        
-        break;
-
-    case 5:
-        header();
-        buyTicket(&ticketChoice, &quantity, &total);           
-        header();
-        schedule(&scheduleChoice);
-
-        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
-        mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
-        
-        if (paymentChoice == 1)
-        {
-            transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
-        }
-
-        else if (paymentChoice == 2)
-        {
-            transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
-        }
-        
-        break;
-
-        
+    if (paymentChoice == 1) {
+        transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
+    } else if (paymentChoice == 2) {
+        transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
     }
-
 
     return 0;
 }
-
-
 
 void header() 
 {
@@ -271,15 +176,16 @@ void schedule(int *scheduleChoice)
 
     
 }
-void orderSummary(int total, int movieChoice, char movie[5][30], char scheduledTime[3][10], int scheduleChoice) 
+void orderSummary(int total
+                , int movieChoice
+                , char movie[5][30]
+                , char scheduledTime[3][10]
+                , int scheduleChoice) 
 {
-    movieChoice--;
-    scheduleChoice--;
     printf("\n========== ORDER DETAILS ==========\n");
-    printf("\nMovie\t: %s", movie[movieChoice]);
-    printf("\nTime\t: %s", scheduledTime[scheduleChoice]);
+    printf("\nMovie\t: %s", movie[movieChoice - 1]);
+    printf("\nTime\t: %s", scheduledTime[scheduleChoice - 1]);
     printf("\nTotal\t: PHP %d ", total);
-
 }
 
 void mode_payment(int *paymentChoice
@@ -294,7 +200,7 @@ void mode_payment(int *paymentChoice
            "\n\nHOW WOULD YOU LIKE TO PAY(1-2): ");
     scanf("%d", paymentChoice);
     
-            while (*paymentChoice > 2 || *paymentChoice < 0)
+            while (*paymentChoice > 2 || *paymentChoice < 1)
             {
                 printf("\n\nInvalid Input!"
                    "\n Please Try Again");
@@ -341,13 +247,12 @@ void mode_payment(int *paymentChoice
 
 void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int amount, int movieChoice, char movie[5][30]) {
     
-    movieChoice--;
-    scheduleChoice--;
+    system("cls");
     printf("\n\nPAYMENT SUCCESSFUL!\n");
     printf("\n========== TRANSACTION DETAILS ==========\n");
-    printf("\nMovie: %s", movie[movieChoice]);
+    printf("\nMovie: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased: %d", quantity);
-    printf("\nTime: %s", scheduledTime[scheduleChoice]);
+    printf("\nTime: %s", scheduledTime[scheduleChoice - 1]);
     printf("\nMode Of Payment: CASH");
     printf("\nTotal: PHP %d", total);
     printf("\nPayment Received: PHP %d\n\n", amount);
@@ -355,15 +260,13 @@ void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], 
 
 void transactionSummaryCard(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int movieChoice, char movie[5][30], char card[2][10], int cardChoice) {
     
-    movieChoice--;
-    scheduleChoice--;
-    cardChoice--;
+    system("cls");
     printf("\n\nPAYMENT SUCCESSFUL!\n");
     printf("\n========== TRANSACTION DETAILS ==========\n");
-    printf("\nMovie: %s", movie[movieChoice]);
+    printf("\nMovie: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased: %d", quantity);
-    printf("\nTime: %s", scheduledTime[scheduleChoice]);
+    printf("\nTime: %s", scheduledTime[scheduleChoice - 1]);
     printf("\nTotal: PHP %d", total);
     printf("\nMode Of Payment: CARD");
-    printf("\nBank Card: %s\n\n", card[cardChoice]);
+    printf("\nBank Card: %s\n\n", card[cardChoice - 1]);
 }
