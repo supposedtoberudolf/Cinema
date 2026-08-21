@@ -1,7 +1,3 @@
-
-
-// PROBLEM: PAANO MADIDISPLAY ANG MGA MOVIES SA TRANSACTION SUMMARY
-
 // FEATURES TO ADD: 
     /*
         discount
@@ -18,7 +14,11 @@ void buyTicket(int *choice, int *quantity, int *total);
 
 void schedule(int *choice);
 
-void orderSummary(int total, int movieChoice, char movie[5][30], char scheduledTime[3][10], int scheduleChoice);
+void orderSummary(int total
+                , int movieChoice
+                , char movie[5][30]
+                , char scheduledTime[3][10]
+                , int scheduleChoice);
 
 void mode_payment(int *choice
                 , int *amount
@@ -26,9 +26,22 @@ void mode_payment(int *choice
                 , int total
                 , int quantity);
 
-void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int amount, int movieChoice, char movie[5][30]);
+void transactionSummaryCASH(int quantity
+                          , int total
+                          , char scheduledTime[3][10]
+                          , int scheduleChoice
+                          , int amount
+                          , int movieChoice
+                          , char movie[5][30]);
 
-void transactionSummaryCard(int quantity, int total,  char scheduledTime[3][10], int scheduleChoice, int movieChoice, char movie[5][30], char card[2][10], int cardChoice);
+void transactionSummaryCard(int quantity
+                          , int total
+                          , char scheduledTime[3][10]
+                          , int scheduleChoice
+                          , int movieChoice
+                          , char movie[5][30]
+                          , char card[2][10]
+                          , int cardChoice);
 
 int main() {
 
@@ -103,15 +116,13 @@ int main() {
         break;
     
 
-    /* case 2:
+    case 2:
         header();
         buyTicket(&ticketChoice, &quantity, &total);           
         header();
         schedule(&scheduleChoice);
 
-        printf("\n========== ORDER DETAILS ==========\n");
-        printf("\nMovie\t: Spider-Man: Brand New Day");
-        orderSummary(total, time, scheduledTime, scheduleChoice);
+        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
         mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
         
         if (paymentChoice == 1)
@@ -132,9 +143,7 @@ int main() {
         header();
         schedule(&scheduleChoice);
 
-        printf("\n========== ORDER DETAILS ==========\n");
-        printf("\nMovie\t: Spider-Man: Brand New Day");
-        orderSummary(total, time, scheduledTime, scheduleChoice);
+        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
         mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
         
         if (paymentChoice == 1)
@@ -155,9 +164,7 @@ int main() {
         header();
         schedule(&scheduleChoice);
 
-        printf("\n========== ORDER DETAILS ==========\n");
-        printf("\nMovie\t: Spider-Man: Brand New Day");
-        orderSummary(total, time, scheduledTime, scheduleChoice);
+        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
         mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
         
         if (paymentChoice == 1)
@@ -178,9 +185,7 @@ int main() {
         header();
         schedule(&scheduleChoice);
 
-        printf("\n========== ORDER DETAILS ==========\n");
-        printf("\nMovie\t: Spider-Man: Brand New Day");
-        orderSummary(total, time, scheduledTime, scheduleChoice);
+        orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
         mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
         
         if (paymentChoice == 1)
@@ -195,7 +200,7 @@ int main() {
         
         break;
 
-        */
+        
     }
 
 
@@ -337,6 +342,7 @@ void mode_payment(int *paymentChoice
 void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int amount, int movieChoice, char movie[5][30]) {
     
     movieChoice--;
+    scheduleChoice--;
     printf("\n\nPAYMENT SUCCESSFUL!\n");
     printf("\n========== TRANSACTION DETAILS ==========\n");
     printf("\nMovie: %s", movie[movieChoice]);
@@ -350,6 +356,7 @@ void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], 
 void transactionSummaryCard(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int movieChoice, char movie[5][30], char card[2][10], int cardChoice) {
     
     movieChoice--;
+    scheduleChoice--;
     cardChoice--;
     printf("\n\nPAYMENT SUCCESSFUL!\n");
     printf("\n========== TRANSACTION DETAILS ==========\n");
