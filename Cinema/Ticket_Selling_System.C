@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 void header();
 
@@ -43,6 +44,8 @@ void transactionSummaryCard(int quantity
                           , char movie[5][30]
                           , char card[2][10]
                           , int cardChoice);
+
+void printLoadingDots(const char *message, int dotCount, int delayMs);
 
 int main() {
 
@@ -153,6 +156,11 @@ void buyTicket(int *ticketChoice, int *quantity, int *total)
   
 }
 
+void applyDiscount(int *total) {
+
+    // DISCOUNT SECTION
+}
+
 void schedule(int *scheduleChoice) 
 {
     printf("\n1.) 12:30 PM"
@@ -216,7 +224,8 @@ void mode_payment(int *paymentChoice
             printf("\nENTER AMOUNT: ");
             scanf("%d", amount);
 
-
+            // SUKLI SECTION
+            // PAYMENT VALIDATION
         }
 
         else if (*paymentChoice == 2)
@@ -247,8 +256,16 @@ void mode_payment(int *paymentChoice
 
 void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int amount, int movieChoice, char movie[5][30]) {
     
+    printf("\n");
+    // DELAY EFFECT: "Processing Payment . . . ." (2 seconds)
+    printLoadingDots("PROCESSING PAYMENT", 4, 500);
+
+    printf("\nPAYMENT SUCCESSFUL!\n");
+    
+    // 2 SECONDS DELAY bago mag-clear screen at mag-display ng summary
+    Sleep(2000);
+
     system("cls");
-    printf("\n\nPAYMENT SUCCESSFUL!\n");
     printf("\n========== TRANSACTION DETAILS ==========\n");
     printf("\nMovie: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased: %d", quantity);
@@ -260,8 +277,16 @@ void transactionSummaryCASH(int quantity, int total, char scheduledTime[3][10], 
 
 void transactionSummaryCard(int quantity, int total, char scheduledTime[3][10], int scheduleChoice, int movieChoice, char movie[5][30], char card[2][10], int cardChoice) {
     
+    printf("\n");
+    // DELAY EFFECT: "Processing Payment . . . ." (2 seconds)
+    printLoadingDots("PROCESSING PAYMENT", 4, 500);
+
+    printf("\nPAYMENT SUCCESSFUL!\n");
+    
+    // 2 SECONDS DELAY bago mag-clear screen at mag-display ng summary
+    Sleep(2000);
+
     system("cls");
-    printf("\n\nPAYMENT SUCCESSFUL!\n");
     printf("\n========== TRANSACTION DETAILS ==========\n");
     printf("\nMovie: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased: %d", quantity);
@@ -269,4 +294,17 @@ void transactionSummaryCard(int quantity, int total, char scheduledTime[3][10], 
     printf("\nTotal: PHP %d", total);
     printf("\nMode Of Payment: CARD");
     printf("\nBank Card: %s\n\n", card[cardChoice - 1]);
+}
+
+void printLoadingDots(const char *message, int dotCount, int delayMs) {
+    
+    printf("%s", message);
+    fflush(stdout);
+
+    for (int i = 0; i < dotCount; i++) {
+        Sleep(delayMs);
+        printf(" .");
+        fflush(stdout);
+    }
+    printf("\n");
 }
