@@ -26,9 +26,9 @@ void mode_payment(int *choice
                 , int total
                 , int quantity);
 
-void transactionSummaryCASH(int quantity, int total, int amount);
+void transactionSummaryCASH(int quantity, int total, int amount, int movieChoice, char movie[5][30]);
 
-void transactionSummaryCard(int quantity, int total, char card[2][10], int cardChoice, char card1[]);
+void transactionSummaryCard(int quantity, int total, int movieChoice, char movie[5][30], char card[2][10], int cardChoice);
 
 int main() {
 
@@ -42,10 +42,15 @@ int main() {
     int amount = 0;
     int cardChoice = 0;
 
-    char card[2][10] = {"BPI", "BDO"};
-    char card1[] = "BPI";
-    char card2[] = "BDO";
 
+    char movie[5][30] = {"Spider-Man: Brand New Day"
+                        , "Moana"
+                        , "Oppenheimer"
+                        , "The Odyssey"
+                        , "Toy Story 5"};
+
+
+    char card[2][10] = {"BPI", "BDO"};
 
     // Pipili ng Movie to Watch
     header();
@@ -89,20 +94,12 @@ int main() {
         
         if (paymentChoice == 1)
         {
-            printf("\n\nPAYMENT SUCCESSFUL!\n");
-            printf("\n========== ORDER DETAILS ==========\n");
-            printf("\nMovie: Spider-Man: Brand New Day");
-            transactionSummaryCASH(quantity, total, amount);
+            transactionSummaryCASH(quantity, total, amount, movieChoice, movie);
         }
 
         else if (paymentChoice == 2)
         {
-            
-            printf("\n\nPAYMENT SUCCESSFUL!\n");
-            printf("\n========== TRANSACTION DETAILS ==========\n");
-            printf("\nMovie: Spider-Man: Brand New Day");
-            transactionSummaryCard(quantity, total, card, cardChoice, card1);
-            
+            transactionSummaryCard(quantity, total, movieChoice, movie, card, cardChoice);
         }
         
         break;
@@ -414,16 +411,24 @@ void mode_payment(int *paymentChoice
         
 }
 
-void transactionSummaryCASH(int quantity, int total, int amount) {
+void transactionSummaryCASH(int quantity, int total, int amount, int movieChoice, char movie[5][30]) {
     
+    movieChoice--;
+    printf("\n\nPAYMENT SUCCESSFUL!\n");
+    printf("\n========== ORDER DETAILS ==========\n");
+    printf("\nMovie: %s", movie[movieChoice]);
     printf("\nTICKET(S) PURCHASED: %d", quantity);
     printf("\nTOTAL: PHP %d", total);
     printf("\nPAYMENT RECEIVED: PHP %d\n\n", amount);
 }
 
-void transactionSummaryCard(int quantity, int total, char card[2][10], int cardChoice, char card1[]) {
+void transactionSummaryCard(int quantity, int total, int movieChoice, char movie[5][30], char card[2][10], int cardChoice) {
     
+    movieChoice--;
     cardChoice--;
+    printf("\n\nPAYMENT SUCCESSFUL!\n");
+    printf("\n========== TRANSACTION DETAILS ==========\n");
+    printf("\nMovie: %s", movie[movieChoice]);
     printf("\nTICKET(S)/PACKAGE(S) PURCHASED: %d", quantity);
     printf("\nTOTAL: PHP %d", total);
     printf("\nMODE OF PAYMENT: CARD");
