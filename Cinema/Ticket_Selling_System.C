@@ -28,6 +28,8 @@ void mode_payment(int *choice
                 , int total
                 , int quantity);
 
+int applyDiscount(int *total);
+
 void transactionSummaryCASH(int quantity
                           , int total
                           , char scheduledTime[3][10]
@@ -156,9 +158,23 @@ void buyTicket(int *ticketChoice, int *quantity, int *total)
   
 }
 
-void applyDiscount(int *total) {
+int applyDiscount(int *total) {
 
-    // DISCOUNT SECTION
+    int discountChoice = 0;
+
+    printf("\n====================================");
+    printf("\n\tDISCOUNT ELGIBILTY");
+    printf("\n====================================\n");
+    printf("\n1. Student / 5 %%");
+    printf("\n2. Senior / 10 %%");
+    printf("\n3. PWD / 20 %%");
+    printf("\n4. None / No Discount");
+
+    printf("\n\nSelect Discount: ");
+    scanf("%d", &discountChoice);
+
+    return discountChoice;
+
 }
 
 void schedule(int *scheduleChoice) 
