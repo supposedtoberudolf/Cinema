@@ -1,10 +1,3 @@
-// FEATURES TO ADD: 
-    /*
-        
-        delayed effect
-    
-    */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
