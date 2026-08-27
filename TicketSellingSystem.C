@@ -96,6 +96,7 @@ int main() {
     printf("\nCHOOSE MOVIE(1-5): ");
     scanf("%d", &movieChoice);
 
+    printLoadingDots("Processing", 4, 500);
     
     while (movieChoice > 5 || movieChoice < 1)
     {
@@ -110,6 +111,8 @@ int main() {
     
     printf("\nCHOOSE MOVIE(1-5): ");
     scanf("%d", &movieChoice);
+
+    printLoadingDots("Processing", 4, 500);
     }
 
     buyTicket(&ticketChoice, &quantity, &total);
@@ -151,6 +154,8 @@ void buyTicket(int *ticketChoice, int *quantity, double *total)
         printf("\nNote: Duo Promo Can Only Be Bought For One Time.\n");
         printf("\nCHOOSE PACKAGE(1-2): ");
         scanf("%d", ticketChoice);
+
+        printLoadingDots("Processing", 4, 500);
     
             while (*ticketChoice > 2 || *ticketChoice < 1)
             {   
@@ -163,6 +168,8 @@ void buyTicket(int *ticketChoice, int *quantity, double *total)
 
             printf("\nCHOOSE PACKAGE(1-2): ");
             scanf("%d", ticketChoice);
+
+            printLoadingDots("Processing", 4, 500);
             }
         
         if (*ticketChoice == 1)
@@ -171,11 +178,15 @@ void buyTicket(int *ticketChoice, int *quantity, double *total)
             scanf("%d", quantity);
         
             *total = *quantity * 620;
+
+            printLoadingDots("Processing", 4, 500);
         }
         else if (*ticketChoice == 2)
         {
             printf("\nHOW MANY TICKET(S): ");
             scanf("%d", quantity);
+
+            printLoadingDots("Processing", 4, 500);
 
             while (*quantity != 1)
             {
@@ -184,9 +195,13 @@ void buyTicket(int *ticketChoice, int *quantity, double *total)
                 Sleep(2000);
                 printf("\nHOW MANY TICKET(S): ");
                 scanf("%d", quantity);
+
+                printLoadingDots("Processing", 4, 500);
             }
             
             *total = *quantity * 1200;
+
+            
         }
   
 }
@@ -251,11 +266,14 @@ void applyDiscount(double *total, double *discountAmount, int *discountChoice) {
 
 void schedule(int *scheduleChoice) 
 {
+    
     printf("\n1.) 12:30 PM"
            "\n2.) 5:00 PM"
            "\n3.) 8:15 PM\n");
     printf("\nSELECT TIME(1-3): ");
     scanf("%d", scheduleChoice);
+
+    printLoadingDots("Processing", 4, 500);
 
         while (*scheduleChoice > 3 || *scheduleChoice < 1)
         {
@@ -267,6 +285,8 @@ void schedule(int *scheduleChoice)
         
             printf("\nSELECT TIME(1-3): ");
             scanf("%d", scheduleChoice);
+
+            printLoadingDots("Processing", 4, 500);
    
     }
 
@@ -284,6 +304,7 @@ void orderSummary(double total
     printf("\nMovie\t: %s", movie[movieChoice - 1]);
     printf("\nTime\t: %s", scheduledTime[scheduleChoice - 1]);
     printf("\nTotal\t: PHP %.2lf ", total);
+    
 }
 
 void mode_payment(int *paymentChoice
@@ -302,6 +323,8 @@ void mode_payment(int *paymentChoice
            "\n2. CARD"
            "\n\nHOW WOULD YOU LIKE TO PAY(1-2): ");
     scanf("%d", paymentChoice);
+
+    printLoadingDots("Processing", 4, 500);
     
             while (*paymentChoice > 2 || *paymentChoice < 1)
             {
@@ -312,6 +335,8 @@ void mode_payment(int *paymentChoice
                    "\n2. CARD"
                    "\n\nHOW WOULD YOU LIKE TO PAY(1-2): ");
                 scanf("%d", paymentChoice);
+
+                printLoadingDots("Processing", 4, 500);
             }
 
         if (*paymentChoice == 1)
@@ -371,6 +396,7 @@ void mode_payment(int *paymentChoice
             printf("\n\nENTER CARD(1-2): ");
             scanf("%d", cardChoice);
 
+
                 while (*cardChoice > 2 || *cardChoice < 1)
                 {
                     printf("\nInvalid Input!"
@@ -382,6 +408,8 @@ void mode_payment(int *paymentChoice
 
                 printf("\n\nENTER CARD(1-2): ");
                 scanf("%d", cardChoice);
+
+                
                 }
             
         }
