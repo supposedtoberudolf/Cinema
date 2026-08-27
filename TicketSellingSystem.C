@@ -414,9 +414,9 @@ void transactionSummaryCASH(int quantity, double total, char scheduledTime[3][10
     printLoadingDots("Working on it", 4, 500);
 
     system("cls");
-    printf("\n====================================");
-    printf("\n\tTRANSACTION SUMMARY");
-    printf("\n====================================\n");
+    printf("\n===================================================");
+    printf("\n\t\tTRANSACTION SUMMARY");
+    printf("\n===================================================\n");
     printf("\nMovie\t\t\t: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased\t: %d", quantity);
     printf("\nTime\t\t\t: %s", scheduledTime[scheduleChoice - 1]);
@@ -426,7 +426,7 @@ void transactionSummaryCASH(int quantity, double total, char scheduledTime[3][10
     printf("\nDiscount Amount\t\t: PHP %.2lf", discountAmount);
     printf("\nPayment Received\t: PHP %.2lf", amount);
     printf("\nChange\t\t\t: PHP %.2lf\n", change);
-    printf("\n====================================\n\n");
+    printf("\n===================================================\n\n");
 }
 
 void transactionSummaryCard(int quantity, double total, char scheduledTime[3][10], int scheduleChoice, int movieChoice, char movie[5][30], char card[2][10], int cardChoice, int discountChoice, char discountOption[4][20], double discountAmount) {
@@ -439,9 +439,9 @@ void transactionSummaryCard(int quantity, double total, char scheduledTime[3][10
     Sleep(2000);
 
     system("cls");
-    printf("\n====================================");
-    printf("\n\tTRANSACTION SUMMARY");
-    printf("\n====================================\n");
+    printf("\n===================================================");
+    printf("\n\t\tTRANSACTION SUMMARY");
+    printf("\n===================================================\n");
     printf("\nMovie\t\t\t: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased\t: %d", quantity);
     printf("\nTime\t\t\t: %s", scheduledTime[scheduleChoice - 1]);
@@ -450,7 +450,7 @@ void transactionSummaryCard(int quantity, double total, char scheduledTime[3][10
     printf("\nDiscount Amount\t\t: PHP %.2lf", discountAmount);
     printf("\nMode Of Payment\t\t: CARD");
     printf("\nBank Card\t\t: %s\n", card[cardChoice - 1]);
-    printf("\n====================================\n\n");
+    printf("\n===================================================\n\n");
 }
 
 void printLoadingDots(const char *message, int dotCount, int delayMs) {
