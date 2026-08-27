@@ -1,8 +1,7 @@
 // FEATURES TO ADD: 
     /*
         
-        sukli 
-        payment validation
+        
         delayed effect
         receipt
         Discount Applied
@@ -30,7 +29,8 @@ void mode_payment(int *choice
                 , double *amount
                 , int *cardChoice
                 , double total
-                , int quantity);
+                , int quantity
+                , double *change);
 
 void applyDiscount(double *total);
 
@@ -40,7 +40,8 @@ void transactionSummaryCASH(int quantity
                           , int scheduleChoice
                           , double amount
                           , int movieChoice
-                          , char movie[5][30]);
+                          , char movie[5][30]
+                          , double change);
 
 void transactionSummaryCard(int quantity
                           , double total
@@ -65,6 +66,7 @@ int main() {
 
     double total = 0.0;
     double amount = 0.0;
+    double change = 0.0;
 
 
     char scheduledTime[3][10] = {"12:30 PM", "5:00 PM", "8:15 PM"};
@@ -115,10 +117,10 @@ int main() {
 
     orderSummary(total, movieChoice, movie, scheduledTime, scheduleChoice);
 
-    mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity);
+    mode_payment(&paymentChoice, &amount, &cardChoice, total, quantity, &change);
         
     if (paymentChoice == 1) {
-        transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie);
+        transactionSummaryCASH(quantity, total, scheduledTime, scheduleChoice, amount, movieChoice, movie, change);
     } else if (paymentChoice == 2) {
         transactionSummaryCard(quantity, total, scheduledTime, scheduleChoice, movieChoice, movie, card, cardChoice);
     }
@@ -128,14 +130,18 @@ int main() {
 
 void header() 
 {
-    printf("\n******** CINEMA TICKET ********\n");
+    printf("\n====================================");
+        printf("\n\t    CINEMA TICKET");
+        printf("\n====================================\n");
 }
 
 void buyTicket(int *ticketChoice, int *quantity, double *total) 
 {
-        printf("\n******** TICKET PRICES ********\n"
-           "\n1. Regular - PHP 620"
-           "\n2. Duo(PROMO!) - PHP 1200\n");
+        printf("\n====================================");
+        printf("\n\t   TICKET PRICES");
+        printf("\n====================================\n");
+        printf("\n1. Regular - PHP 620"
+               "\n2. Duo(PROMO!) - PHP 1200\n");
         printf("\nCHOOSE PACKAGE(1-2): ");
         scanf("%d", ticketChoice);
     
@@ -249,7 +255,9 @@ void orderSummary(double total
                 , char scheduledTime[3][10]
                 , int scheduleChoice) 
 {
-    printf("\n========== ORDER DETAILS ==========\n");
+    printf("\n====================================");
+    printf("\n\t   ORDER DETAILS");
+    printf("\n====================================\n");
     printf("\nMovie\t: %s", movie[movieChoice - 1]);
     printf("\nTime\t: %s", scheduledTime[scheduleChoice - 1]);
     printf("\nTotal\t: PHP %.2lf ", total);
@@ -259,9 +267,13 @@ void mode_payment(int *paymentChoice
                 , double *amount
                 , int *cardChoice
                 , double total
-                , int quantity) 
+                , int quantity
+                , double *change) 
 
 {
+    int successfulPayment = 0;
+    
+
     printf("\n\n1. CASH"
            "\n2. CARD"
            "\n\nHOW WOULD YOU LIKE TO PAY(1-2): ");
@@ -270,7 +282,7 @@ void mode_payment(int *paymentChoice
             while (*paymentChoice > 2 || *paymentChoice < 1)
             {
                 printf("\n\nInvalid Input!"
-                   "\n Please Try Again");
+                   "\nPlease Try Again");
 
                 printf("\n\n1. CASH"
                    "\n2. CARD"
@@ -280,11 +292,49 @@ void mode_payment(int *paymentChoice
 
         if (*paymentChoice == 1)
         {
-            printf("\nENTER AMOUNT: ");
-            scanf("%lf", amount);
 
-            // SUKLI SECTION
-            // PAYMENT VALIDATION
+            do
+            {
+                printf("\nENTER AMOUNT: ");
+                scanf("%lf", amount);
+
+                    if (*amount <= 0)
+                    {
+                        printLoadingDots("Processing Payment", 4, 500);
+                        printf("\nYou Have to Enter The Correct Amount!");
+                        printf("\nPlease Try Again\n");
+                        successfulPayment = 0;
+                        Sleep(2000);
+                    }
+                    else if (*amount < total)
+                    {
+                        printLoadingDots("Processing Payment", 4, 500);
+                        printf("\nInsufficient Amount!");
+                        printf("\nPlease Try Again\n");
+                        successfulPayment = 0;
+                        Sleep(2000);
+                    }
+                    else if (*amount > total)
+                    {
+                        printLoadingDots("Processing Payment", 4, 500);
+                        *change = *amount - total;
+                        printf("\nPayment Successful!\n");
+                        successfulPayment = 1;
+                        Sleep(2000);
+                    }
+                    
+                    else  
+                    {
+                        printLoadingDots("Processing Payment", 4, 500);
+                        printf("\nPayment Successful!\n");
+                        successfulPayment = 1;
+                        Sleep(2000);
+                    }
+                    
+                    
+            } while (successfulPayment == 0);
+            
+            
         }
 
         else if (*paymentChoice == 2)
@@ -313,17 +363,14 @@ void mode_payment(int *paymentChoice
         
 }
 
-void transactionSummaryCASH(int quantity, double total, char scheduledTime[3][10], int scheduleChoice, double amount, int movieChoice, char movie[5][30]) {
+void transactionSummaryCASH(int quantity, double total, char scheduledTime[3][10], int scheduleChoice, double amount, int movieChoice, char movie[5][30], double change) {
     
-    printLoadingDots("PROCESSING PAYMENT", 4, 500);
-
-    printf("\nPAYMENT SUCCESSFUL!\n");
-    
-    
-    Sleep(2000);
+    printLoadingDots("Working On It", 4, 500);
 
     system("cls");
-    printf("\n========== TRANSACTION DETAILS ==========\n");
+    printf("\n====================================");
+    printf("\n\tTRANSACTION SUMMARY");
+    printf("\n====================================\n");
     printf("\nMovie: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased: %d", quantity);
     printf("\nTime: %s", scheduledTime[scheduleChoice - 1]);
@@ -331,20 +378,24 @@ void transactionSummaryCASH(int quantity, double total, char scheduledTime[3][10
     printf("\nTotal: PHP %.2lf", total);
     // Discount Applied
     // Discount Amount
-    printf("\nPayment Received: PHP %.2lf\n\n", amount);
+    printf("\nPayment Received: PHP %.2lf", amount);
+    printf("\nChange: PHP %.2lf\n", change);
+    printf("\n====================================\n\n");
 }
 
 void transactionSummaryCard(int quantity, double total, char scheduledTime[3][10], int scheduleChoice, int movieChoice, char movie[5][30], char card[2][10], int cardChoice) {
    
-    printLoadingDots("PROCESSING PAYMENT", 4, 500);
+    printLoadingDots("Processing Payment", 4, 500);
 
-    printf("\nPAYMENT SUCCESSFUL!\n");
+    printf("\nPayment Successful!\n");
     
     
     Sleep(2000);
 
     system("cls");
-    printf("\n========== TRANSACTION DETAILS ==========\n");
+    printf("\n====================================");
+    printf("\n\tTRANSACTION SUMMARY");
+    printf("\n====================================\n");
     printf("\nMovie: %s", movie[movieChoice - 1]);
     printf("\nTicket(s) Purchased: %d", quantity);
     printf("\nTime: %s", scheduledTime[scheduleChoice - 1]);
@@ -352,7 +403,8 @@ void transactionSummaryCard(int quantity, double total, char scheduledTime[3][10
     // Discount Applied
     // Discount Amount
     printf("\nMode Of Payment: CARD");
-    printf("\nBank Card: %s\n\n", card[cardChoice - 1]);
+    printf("\nBank Card: %s\n", card[cardChoice - 1]);
+    printf("\n====================================\n\n");
 }
 
 void printLoadingDots(const char *message, int dotCount, int delayMs) {
