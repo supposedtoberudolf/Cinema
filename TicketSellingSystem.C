@@ -78,7 +78,7 @@ int main() {
 
     char card[2][10] = {"BPI", "BDO"};
 
-    
+    // START PROGRAM
     header();
     printf("\n1.) Spider-Man: Brand New Day"
            "\n2.) Moana"
