@@ -9,7 +9,7 @@
 
     for Optimization:
     - preview order quantity to confirm
-    - refactoring 
+    - refactoring
 
 */
 
@@ -121,7 +121,7 @@ int main() {
                             scanf("%d", &chickenOrderQuantity);
                             mealSubtotal += (chickenOrderQuantity * 99.00);
                             
-                            while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1)
+                            do
                             {
                                 footer();
                                 printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
@@ -141,7 +141,7 @@ int main() {
                                         successfulFoodOrder = 1;
                                         break;
                                     }
-                            }
+                            } while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                             
                             
                         }
@@ -152,7 +152,7 @@ int main() {
                             scanf("%d", &filletOrderQuantity);
                             mealSubtotal += (filletOrderQuantity * 99.00);
                             
-                            while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1)
+                            do
                             {
                                 footer();
                                 printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
@@ -172,7 +172,7 @@ int main() {
                                         successfulFoodOrder = 1;
                                         break;
                                     }
-                            }
+                            } while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userFoodChoice == 3)
                         {
@@ -181,7 +181,7 @@ int main() {
                             scanf("%d", &spaghettiOrderQuantity);
                             mealSubtotal += (spaghettiOrderQuantity * 129.00);
                             
-                            while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1)
+                            do
                             {
                                 footer();
                                 printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
@@ -201,7 +201,7 @@ int main() {
                                         successfulFoodOrder = 1;
                                         break;
                                     }
-                            }
+                            } while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userFoodChoice == 4)
                         {
@@ -210,7 +210,7 @@ int main() {
                             scanf("%d", &palabokOrderQuantity);
                             mealSubtotal += (palabokOrderQuantity * 159.00);
                             
-                            while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1)
+                            do
                             {
                                 footer();
                                 printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
@@ -230,7 +230,7 @@ int main() {
                                         successfulFoodOrder = 1;
                                         break;
                                     }
-                            }
+                            } while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userFoodChoice == 5)
                         {
@@ -239,7 +239,7 @@ int main() {
                             scanf("%d", &crispypataOrderQuantity);
                             mealSubtotal += (crispypataOrderQuantity * 299.00);
                             
-                            while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1)
+                            do
                             {
                                 footer();
                                 printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
@@ -259,7 +259,7 @@ int main() {
                                         successfulFoodOrder = 1;
                                         break;
                                     }
-                            }
+                            } while (successfulFoodOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userFoodChoice == 6)
                         {
