@@ -10,8 +10,8 @@
     for Optimization:
     - preview order quantity to confirm
     - refactoring
-    - DI KAILANGAN ULIT ULITIN YUNG DO YOU WISH TO CONTINUE TO ORDER
-    - SA MAY DRINKS SECTION MAGULO BECAUSE OF DIFFERENT SIZES
+    - 
+    - 
 
 */
 
@@ -133,6 +133,79 @@ int getUserDrinksSize() {
     return userDrinksSizeChoice;
 }
 
+void mealWishToOrder(int *wishToOrder, int *successfulMealOrder) {
+
+    do
+    {
+        footer();
+        printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
+        printf("\n[1] YES");
+        printf("\n[2] NO\n");
+
+        printf("\nCHOOSE ONE: ");
+        scanf("%d", wishToOrder);
+
+            if (*wishToOrder == 1)
+            {
+            *successfulMealOrder = 0;
+            break;
+            }
+            else if (*wishToOrder == 2)
+            {
+            *successfulMealOrder = 1;
+            break;
+            }
+    } while (*successfulMealOrder != 1 || *wishToOrder > 2 || *wishToOrder < 1);
+}
+
+void bitesWishToOrder(int *wishToOrder, int *successfulBitesOrder) {
+
+    do
+    {
+        footer();
+        printf("\nDO YOU WISH TO ORDER MORE BITES?");
+        printf("\n[1] YES");
+        printf("\n[2] NO\n");
+
+        printf("\nCHOOSE ONE: ");
+        scanf("%d", wishToOrder);
+
+            if (*wishToOrder == 1)
+            {
+            *successfulBitesOrder = 0;
+            break;
+            }
+            else if (*wishToOrder == 2)
+            {
+            *successfulBitesOrder = 1;
+            break;
+            }
+    } while (*successfulBitesOrder != 1 || *wishToOrder > 2 || *wishToOrder < 1);
+}
+
+void drinksWishToOrder(int *wishToOrder, int *successfulDrinksOrder) {
+
+    do  
+    {
+        footer();
+        printf("\nDO YOU WISH TO ORDER MORE DRINKS?");
+        printf("\n[1] YES");
+        printf("\n[2] NO\n");
+
+        printf("\nCHOOSE ONE: ");
+        scanf("%d", wishToOrder);
+
+            if (*wishToOrder == 1)
+            {
+                *successfulDrinksOrder = 0;
+            }
+            else if (*wishToOrder == 2)
+            {
+                *successfulDrinksOrder = 1;
+            }
+    } while (*wishToOrder > 2 || *wishToOrder < 1);
+}
+
 
 int main() {
 
@@ -154,6 +227,10 @@ int main() {
     float mealSubtotal = 0.0;
     float biteSubtotal = 0.0;
     float drinkSubtotal = 0.0;
+
+    // Total 
+    float total = 0.0;
+    float grandTotal = 0.0;
 
     // WISH TO CONTINUE
     int wishToOrder = 0;
@@ -197,34 +274,12 @@ int main() {
                     userMealChoice = getUserMealChoice();
 
                         if (userMealChoice == 1)
-                        {   footer();
+                        {   
+                            footer();
                             printf("\nHOW MANY ORDER(S): ");
                             scanf("%d", &chickenOrderQuantity);
                             mealSubtotal += (chickenOrderQuantity * 99.00);
-                            
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulMealOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulMealOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulMealOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
-                            
-                            
+                          
                         }
                         else if (userMealChoice == 2)
                         {
@@ -232,28 +287,7 @@ int main() {
                             printf("\nHOW MANY ORDER(S): ");
                             scanf("%d", &filletOrderQuantity);
                             mealSubtotal += (filletOrderQuantity * 99.00);
-                            
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulMealOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulMealOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulMealOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
+                                                        
                         }
                         else if (userMealChoice == 3)
                         {
@@ -261,28 +295,7 @@ int main() {
                             printf("\nHOW MANY ORDER(S): ");
                             scanf("%d", &spaghettiOrderQuantity);
                             mealSubtotal += (spaghettiOrderQuantity * 129.00);
-                            
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulMealOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulMealOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulMealOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
+                                                        
                         }
                         else if (userMealChoice == 4)
                         {
@@ -290,28 +303,7 @@ int main() {
                             printf("\nHOW MANY ORDER(S): ");
                             scanf("%d", &palabokOrderQuantity);
                             mealSubtotal += (palabokOrderQuantity * 159.00);
-                            
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulMealOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulMealOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulMealOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
+                                                        
                         }
                         else if (userMealChoice == 5)
                         {
@@ -319,28 +311,7 @@ int main() {
                             printf("\nHOW MANY ORDER(S): ");
                             scanf("%d", &crispypataOrderQuantity);
                             mealSubtotal += (crispypataOrderQuantity * 299.00);
-                            
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulMealOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulMealOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulMealOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
+                                                        
                         }
                         else if (userMealChoice == 6)
                         {
@@ -355,12 +326,12 @@ int main() {
                             successfulMealOrder = 0;
                         }
                         
-                        
-                        
-                        
-                        
-                        
-                } while (userMealChoice > 6 || userMealChoice < 1 || successfulMealOrder != 1);
+                                if (userMealChoice <= 5 && userMealChoice >= 1)
+                                {
+                                    mealWishToOrder(&wishToOrder, &successfulMealOrder);
+                                }
+                                   
+                } while (successfulMealOrder != 1);
 
                 successfulOrder = 0;
             }
@@ -378,29 +349,6 @@ int main() {
                             scanf("%d", &burgerOrderQuantity);
                             biteSubtotal += (burgerOrderQuantity * 79.00);
                             
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER BITES?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulBitesOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulBitesOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulBitesOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
-                            
-                            
                         }
                         else if (userBitesChoice == 2)
                         {
@@ -409,27 +357,6 @@ int main() {
                             scanf("%d", &friesOrderQuantity);
                             biteSubtotal += (friesOrderQuantity * 59.00);
                             
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER BITES?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulBitesOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulBitesOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulBitesOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userBitesChoice == 3)
                         {
@@ -438,27 +365,6 @@ int main() {
                             scanf("%d", &popcornOrderQuantity);
                             biteSubtotal += (popcornOrderQuantity * 109.00);
                             
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER BITES?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulBitesOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulBitesOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulBitesOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userBitesChoice == 4)
                         {
@@ -467,27 +373,6 @@ int main() {
                             scanf("%d", &hotdogOrderQuantity);
                             biteSubtotal += (hotdogOrderQuantity * 89.00);
                             
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER BITES?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulBitesOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulBitesOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulBitesOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userBitesChoice == 5)
                         {
@@ -496,27 +381,6 @@ int main() {
                             scanf("%d", &spudOrderQuantity);
                             biteSubtotal += (spudOrderQuantity * 129.00);
                             
-                            do
-                            {
-                                footer();
-                                printf("\nDO YOU WISH TO ORDER ANOTHER BITES?");
-                                printf("\n[1] YES");
-                                printf("\n[2] NO\n");
-
-                                printf("\nCHOOSE ONE: ");
-                                scanf("%d", &wishToOrder);
-
-                                    if (wishToOrder == 1)
-                                    {
-                                        successfulBitesOrder = 0;
-                                        break;
-                                    }
-                                    else if (wishToOrder == 2)
-                                    {
-                                        successfulBitesOrder = 1;
-                                        break;
-                                    }
-                            } while (successfulBitesOrder != 1 || wishToOrder > 2 || wishToOrder < 1);
                         }
                         else if (userBitesChoice == 6)
                         {
@@ -531,7 +395,12 @@ int main() {
                             successfulBitesOrder = 0;
                         }
                         
-                } while (successfulBitesOrder != 1 || userBitesChoice > 6 || userBitesChoice < 1);
+                                if (userBitesChoice <= 5 && userBitesChoice >= 1)
+                                {
+                                    bitesWishToOrder(&wishToOrder, &successfulBitesOrder);
+                                }
+                                
+                } while (successfulBitesOrder != 1);
                 
                 successfulOrder = 0;
             }
@@ -693,28 +562,10 @@ int main() {
                             invalidInput(); 
                         }
                         
-                                    if (userDrinksSizeChoice <= 3 && userDrinksSizeChoice >= 1)
-                                    {
-                                        do  
-                                        {
-                                        footer();
-                                        printf("\nDO YOU WISH TO ORDER MORE DRINKS?");
-                                        printf("\n[1] YES");
-                                        printf("\n[2] NO\n");
-
-                                        printf("\nCHOOSE ONE: ");
-                                        scanf("%d", &wishToOrder);
-
-                                            if (wishToOrder == 1)
-                                            {
-                                                successfulDrinksOrder = 0;
-                                            }
-                                            else if (wishToOrder == 2)
-                                            {
-                                                successfulDrinksOrder = 1;
-                                            }
-                                        } while (wishToOrder > 2 || wishToOrder < 1);
-                                    }
+                                if (userDrinksSizeChoice <= 4 && userDrinksSizeChoice >= 1)
+                                {
+                                    drinksWishToOrder(&wishToOrder, &successfulDrinksOrder);
+                                }
 
                 } while (successfulDrinksOrder != 1);
                 
@@ -723,7 +574,18 @@ int main() {
 
             else if (userMenuChoice == 4)
             {
-                successfulOrder = 0;
+                total = mealSubtotal + biteSubtotal + drinkSubtotal;
+
+                if (total > 0)
+                {
+                    /* code */
+                }
+                else
+                {
+                    printf("\nYOU HAVE TO BUY SOMETHING FIRST\n");
+                    successfulOrder = 0;
+                }
+                
             }
 
             else if (userMenuChoice == 5)
