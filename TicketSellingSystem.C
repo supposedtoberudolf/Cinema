@@ -52,6 +52,7 @@ void printLoadingDots(const char *message, int dotCount, int delayMs);
 
 int main() {
 
+    // UserChoice
     int movieChoice = 0;
     int ticketChoice = 0;
     int scheduleChoice = 0;
@@ -60,6 +61,7 @@ int main() {
     int cardChoice = 0;
     int discountChoice = 0;
 
+    // Payment 
     double total = 0.0;
     double amount = 0.0;
     double change = 0.0;
