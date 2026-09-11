@@ -1,44 +1,34 @@
-/*
-    Food Menu: Burger, Fries, Popcorn, Hotdogs, Spud
-    Drinks: Coke, Sprite, Pepsi, Water
-
-    Features: 
-    - add orders
-    - discount
-    - promo
-
-    for Optimization:
-    - preview order quantity to confirm
-    - refactoring
-    - 
-    - 
-
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 
-
-void pressToContinue() {
+void pressToContinue()
+{
     printf("=============================================\n");
     printf("            EXPRESS DINER KIOSK              \n");
     printf("     Freshly Cooked | Served To Your Seat    \n");
     printf("=============================================\n");
     printf("       [ PRESS ENTER TO START ORDER ]       \n");
     printf("=============================================\n");
-    while(getchar() != '\n');
-    system("cls"); 
+
+    while (getchar() != '\n');
+    system("cls");
 }
 
-void footer() {
-
+void footer()
+{
     printf("\n=============================================\n");
 }
 
-int getUserMenuChoice() {
+void invalidInput()
+{
+    printf("\nInvalid Input");
+    printf("\nPlease Try Again\n");
+}
 
-    int userMenuChoice = 0;
+int getUserMenuChoice()
+{
+    int choice;
 
     printf("\n=============================================");
     printf("\n   ------ WELCOME TO EXPRESS DINER! ------");
@@ -48,21 +38,16 @@ int getUserMenuChoice() {
     printf("\n[3] DRINKS - Cold Sodas & Juices!");
     printf("\n[4] CONFIRM & PAY - Proceed to Checkout");
     printf("\n[5] EXIT\n");
-    
+
     printf("\nENTER YOUR CHOICE: ");
-    scanf("%d", &userMenuChoice);
-    return userMenuChoice;
+    scanf("%d", &choice);
+
+    return choice;
 }
 
-void invalidInput() {
-
-    printf("\nInvalid Input");
-    printf("\nPlease Try Again\n");
-}
-
-int getUserMealChoice() {
-
-    int userMealChoice = 0;
+int getUserMealChoice()
+{
+    int choice;
 
     printf("\n=============================================");
     printf("\n\t    ------ MEALS ------");
@@ -75,13 +60,14 @@ int getUserMealChoice() {
     printf("\n[6] RETURN TO MAIN MENU\n");
 
     printf("\nENTER YOUR CHOICE: ");
-    scanf("%d", &userMealChoice);
-    return userMealChoice;
+    scanf("%d", &choice);
+
+    return choice;
 }
 
-int getUserBitesChoice() {
-
-    int userBitesChoice = 0;
+int getUserBitesChoice()
+{
+    int choice;
 
     printf("\n=============================================");
     printf("\n\t    ------ BITES ------");
@@ -94,13 +80,14 @@ int getUserBitesChoice() {
     printf("\n[6] RETURN TO MAIN MENU\n");
 
     printf("\nENTER YOUR CHOICE: ");
-    scanf("%d", &userBitesChoice);
-    return userBitesChoice;
+    scanf("%d", &choice);
+
+    return choice;
 }
 
-int getUserDrinksChoice() {
-
-    int userDrinksChoice = 0;
+int getUserDrinksChoice()
+{
+    int choice;
 
     printf("\n=============================================");
     printf("\n\t    ------ DRINKS ------");
@@ -112,13 +99,14 @@ int getUserDrinksChoice() {
     printf("\n[5] RETURN TO MAIN MENU\n");
 
     printf("\nENTER YOUR CHOICE: ");
-    scanf("%d", &userDrinksChoice);
-    return userDrinksChoice;
+    scanf("%d", &choice);
+
+    return choice;
 }
 
-int getUserDrinksSize() {
-
-    int userDrinksSizeChoice = 0;
+int getUserDrinksSize()
+{
+    int choice;
 
     printf("\n=============================================");
     printf("\n\t  ------ DRINKS SIZES ------");
@@ -129,734 +117,375 @@ int getUserDrinksSize() {
     printf("\n[4] RETURN TO DRINKS MENU\n");
 
     printf("\nENTER YOUR CHOICE: ");
-    scanf("%d", &userDrinksSizeChoice);
-    return userDrinksSizeChoice;
+    scanf("%d", &choice);
+
+    return choice;
 }
 
-void mealWishToOrder(int *wishToOrder, int *successfulMealOrder) {
+int askToOrderAgain(char message[])
+{
+    int choice;
 
     do
     {
         footer();
-        printf("\nDO YOU WISH TO ORDER ANOTHER MEAL?");
+        printf("\n%s", message);
         printf("\n[1] YES");
         printf("\n[2] NO\n");
 
         printf("\nCHOOSE ONE: ");
-        scanf("%d", wishToOrder);
+        scanf("%d", &choice);
 
-            if (*wishToOrder == 1)
-            {
-            *successfulMealOrder = 0;
-            break;
-            }
-            else if (*wishToOrder == 2)
-            {
-            *successfulMealOrder = 1;
-            break;
-            }
-    } while (*successfulMealOrder != 1 || *wishToOrder > 2 || *wishToOrder < 1);
+        if (choice != 1 && choice != 2)
+        {
+            invalidInput();
+        }
+
+    } while (choice != 1 && choice != 2);
+
+    return choice;
 }
 
-void bitesWishToOrder(int *wishToOrder, int *successfulBitesOrder) {
-
-    do
-    {
-        footer();
-        printf("\nDO YOU WISH TO ORDER MORE BITES?");
-        printf("\n[1] YES");
-        printf("\n[2] NO\n");
-
-        printf("\nCHOOSE ONE: ");
-        scanf("%d", wishToOrder);
-
-            if (*wishToOrder == 1)
-            {
-            *successfulBitesOrder = 0;
-            break;
-            }
-            else if (*wishToOrder == 2)
-            {
-            *successfulBitesOrder = 1;
-            break;
-            }
-    } while (*successfulBitesOrder != 1 || *wishToOrder > 2 || *wishToOrder < 1);
-}
-
-void drinksWishToOrder(int *wishToOrder, int *successfulDrinksOrder) {
-
-    do  
-    {
-        footer();
-        printf("\nDO YOU WISH TO ORDER MORE DRINKS?");
-        printf("\n[1] YES");
-        printf("\n[2] NO\n");
-
-        printf("\nCHOOSE ONE: ");
-        scanf("%d", wishToOrder);
-
-            if (*wishToOrder == 1)
-            {
-                *successfulDrinksOrder = 0;
-            }
-            else if (*wishToOrder == 2)
-            {
-                *successfulDrinksOrder = 1;
-            }
-    } while (*wishToOrder > 2 || *wishToOrder < 1);
-}
-
-void confirmOrder(char selectedMeals[5][20]
-                , int isMealChoice1
-                , int chickenOrderFinalQuantity
-                , float chickenOrderFinalTotal
-                , int isMealChoice2
-                , int filletOrderFinalQuantity
-                , float filletOrderFinalTotal
-                , int isMealChoice3
-                , int spaghettiOrderFinalQuantity
-                , float spaghettiOrderFinalTotal
-                , int isMealChoice4
-                , int palabokOrderFinalQuantity
-                , float palabokOrderFinalTotal
-                , int isMealChoice5
-                , int crispypataOrderFinalQuantity
-                , float crispypataOrderFinalTotal) {
+void showOrder(
+    char meals[5][20],
+    int mealQuantity[5],
+    float mealTotal[5],
+    char bites[5][20],
+    int biteQuantity[5],
+    float biteTotal[5],
+    char drinks[4][20],
+    char sizes[3][10],
+    int drinkQuantity[4][3],
+    float drinkTotal[4][3],
+    float total)
+{
+    int i;
+    int j;
 
     printf("\n=============================================");
     printf("\n        ------ PURCHASE OVERVIEW ------");
     printf("\n=============================================\n");
 
-    if (isMealChoice1)
+    for (i = 0; i < 5; i++)
     {
-        printf("\n%s - x%d\t\tPHP %.2f", selectedMeals[isMealChoice1 - 1], chickenOrderFinalQuantity, chickenOrderFinalTotal);
+        if (mealQuantity[i] > 0)
+        {
+            printf("\n%s - x%d\t\tPHP %.2f",
+                   meals[i], mealQuantity[i], mealTotal[i]);
+        }
     }
-    if (isMealChoice2)
+
+    for (i = 0; i < 5; i++)
     {
-        printf("\n%s - x%d\t\tPHP %.2f", selectedMeals[isMealChoice2 - 1], filletOrderFinalQuantity, filletOrderFinalTotal);
+        if (biteQuantity[i] > 0)
+        {
+            printf("\n%s - x%d\t\tPHP %.2f",
+                   bites[i], biteQuantity[i], biteTotal[i]);
+        }
     }
-    if (isMealChoice3)
+
+    for (i = 0; i < 4; i++)
     {
-        printf("\n%s - x%d\t\tPHP %.2f", selectedMeals[isMealChoice3 - 1], spaghettiOrderFinalQuantity, spaghettiOrderFinalTotal);
+        for (j = 0; j < 3; j++)
+        {
+            if (drinkQuantity[i][j] > 0)
+            {
+                printf("\n%s %s - x%d\tPHP %.2f",
+                       drinks[i], sizes[j],
+                       drinkQuantity[i][j],
+                       drinkTotal[i][j]);
+            }
+        }
     }
-    if (isMealChoice4)
-    {
-        printf("\n%s - x%d\t\tPHP %.2f", selectedMeals[isMealChoice4 - 1], palabokOrderFinalQuantity, palabokOrderFinalTotal);
-    }
-    if (isMealChoice5)
-    {
-        printf("\n%s - x%d\t\tPHP %.2f", selectedMeals[isMealChoice5 - 1], crispypataOrderFinalQuantity, crispypataOrderFinalTotal);
-    }
-    
-    
-    
-    
+
+    printf("\n\n---------------------------------------------");
+    printf("\nTOTAL: \t\t\tPHP %.2f", total);
+    printf("\n=============================================\n");
 }
 
+int main()
+{
+    int userMenuChoice;
+    int userMealChoice;
+    int userBitesChoice;
+    int userDrinksChoice;
+    int userDrinksSizeChoice;
 
-int main() {
+    int wishToOrder;
 
-    // Cinema Food Ordering System
-    int userMenuChoice = 0;
-
-    int userMealChoice = 0;
-    int userBitesChoice = 0;
-    int userDrinksChoice = 0;
-    int userDrinksSizeChoice = 0;
-
-    int successfulMealOrder = 0;
-    int successfulBitesOrder = 0;
-    int successfulDrinksOrder = 0;
-
-    int successfulOrder = 0;
-
-    // Subtotals
     float mealSubtotal = 0.0;
     float biteSubtotal = 0.0;
     float drinkSubtotal = 0.0;
-
-    // Total 
     float total = 0.0;
-    float grandTotal = 0.0;
 
-    // WISH TO CONTINUE
-    int wishToOrder = 0;
+    char selectedMeals[5][20] =
+    {
+        "CHICKEN W/ GRAVY",
+        "CHICKEN FILLET",
+        "SPAGHETTI OVERLOAD",
+        "PALABOK EXPRESS",
+        "CRISPY PATA"
+    };
 
-    // Meals
-    int chickenOrderQuantity = 0;
-    int filletOrderQuantity = 0;
-    int spaghettiOrderQuantity = 0;
-    int palabokOrderQuantity = 0;
-    int crispypataOrderQuantity = 0;
+    char selectedBites[5][20] =
+    {
+        "BURGER EXPRESS",
+        "FRENCH FRIES",
+        "POPCORN",
+        "HOTDOGS",
+        "SPUD POTATO"
+    };
 
-    int chickenOrderFinalQuantity = 0;
-    int filletOrderFinalQuantity = 0;
-    int spaghettiOrderFinalQuantity = 0;
-    int palabokOrderFinalQuantity = 0;
-    int crispypataOrderFinalQuantity = 0;
+    char selectedDrinks[4][20] =
+    {
+        "COKE",
+        "SPRITE",
+        "PEPSI",
+        "ICE TEA"
+    };
 
-    float chickenOrderTotal = 0.0;
-    float filletOrderTotal = 0.0;
-    float spaghettiOrderTotal = 0.0;
-    float palabokOrderTotal = 0.0;
-    float crispypataOrderTotal = 0.0;
+    char drinkSizes[3][10] =
+    {
+        "REGULAR",
+        "MEDIUM",
+        "LARGE"
+    };
 
-    float chickenOrderFinalTotal = 0.0;
-    float filletOrderFinalTotal = 0.0;
-    float spaghettiOrderFinalTotal = 0.0;
-    float palabokOrderFinalTotal = 0.0;
-    float crispypataOrderFinalTotal = 0.0;
+    float mealPrices[5] =
+    {
+        99.00, 99.00, 129.00, 159.00, 299.00
+    };
 
-    // Bites
-    int burgerOrderQuantity = 0;
-    int friesOrderQuantity = 0;
-    int popcornOrderQuantity = 0;
-    int hotdogOrderQuantity = 0;
-    int spudOrderQuantity = 0;
+    float bitePrices[5] =
+    {
+        79.00, 59.00, 109.00, 89.00, 129.00
+    };
 
-    int burgerOrderFinalQuantity = 0;
-    int friesOrderFinalQuantity = 0;
-    int popcornOrderFinalQuantity = 0;
-    int hotdogOrderFinalQuantity = 0;
-    int spudOrderFinalQuantity = 0;
+    float drinkPrices[3] =
+    {
+        39.00, 59.00, 79.00
+    };
 
-    float burgerOrderTotal = 0.0;
-    float friesOrderTotal = 0.0;
-    float popcornOrderTotal = 0.0;
-    float hotdogOrderTotal = 0.0;
-    float spudOrderTotal = 0.0;
+    int mealQuantity[5] = {0};
+    float mealTotal[5] = {0};
 
-    float burgerOrderFinalTotal = 0.0;
-    float friesOrderFinalTotal = 0.0;
-    float popcornOrderFinalTotal = 0.0;
-    float hotdogOrderFinalTotal = 0.0;
-    float spudOrderFinalTotal = 0.0;
+    int biteQuantity[5] = {0};
+    float biteTotal[5] = {0};
 
-    // Drinks Regular
-    int cokeRegularOrderQuantity = 0;
-    int spriteRegularOrderQuantity = 0;
-    int pepsiRegularOrderQuantity = 0; 
-    int iceteaRegularOrderQuantity = 0;
+    int drinkQuantity[4][3] = {0};
+    float drinkTotal[4][3] = {0};
 
-    int cokeRegularOrderFinalQuantity = 0;
-    int spriteRegularOrderFinalQuantity = 0;
-    int pepsiRegularOrderFinalQuantity = 0; 
-    int iceteaRegularOrderFinalQuantity = 0;
-
-    float cokeRegularOrderTotal = 0.0;
-    float spriteRegularOrderTotal = 0.0;
-    float pepsiRegularOrderTotal = 0.0; 
-    float iceteaRegularOrderTotal = 0.0;
-
-    float cokeRegularOrderFinalTotal = 0.0;
-    float spriteRegularOrderFinalTotal = 0.0;
-    float pepsiRegularOrderFinalTotal = 0.0; 
-    float iceteaRegularOrderFinalTotal = 0.0;
-
-    // Drinks Medium
-    int cokeMediumOrderQuantity = 0;
-    int spriteMediumOrderQuantity = 0;
-    int pepsiMediumOrderQuantity = 0; 
-    int iceteaMediumOrderQuantity = 0;
-
-    int cokeMediumOrderFinaluantity = 0;
-    int spriteMediumOrderFinaluantity = 0;
-    int pepsiMediumOrderFinalQuantity = 0; 
-    int iceteaMediumOrderFinalQuantity = 0;
-
-    float cokeMediumOrderTotal = 0.0;
-    float spriteMediumOrderTotal = 0.0;
-    float pepsiMediumOrderTotal = 0.0; 
-    float iceteaMediumOrderTotal = 0.0;
-
-    float cokeMediumOrderFinalTotal = 0.0;
-    float spriteMediumOrderFinalTotal = 0.0;
-    float pepsiMediumOrderFinalTotal = 0.0; 
-    float iceteaMediumOrderFinalTotal = 0.0;
-
-    // Drinks Large
-    int cokeLargeOrderQuantity = 0;
-    int spriteLargeOrderQuantity = 0;
-    int pepsiLargeOrderQuantity = 0; 
-    int iceteaLargeOrderQuantity = 0;
-
-    int cokeLargeOrderFinalQuantity = 0;
-    int spriteLargeOrderFinalQuantity = 0;
-    int pepsiLargeOrderFinalQuantity = 0; 
-    int iceteaLargeOrderFinalQuantity = 0;
-
-    float cokeLargeOrderTotal = 0.0;
-    float spriteLargeOrderTotal = 0.0;
-    float pepsiLargeOrderTotal = 0.0; 
-    float iceteaLargeOrderTotal = 0.0;
-
-    float cokeLargeOrderFinalTotal = 0.0;
-    float spriteLargeOrderFinalTotal = 0.0;
-    float pepsiLargeOrderFinalTotal = 0.0; 
-    float iceteaLargeOrderFinalTotal = 0.0;
-
-    char selectedMeals[5][20] = {"CHICKEN W/ GRAVY", "CHICKEN FILLET", "SPAGHETTI OVERLOAD", "PALABOK EXPRESS", "CRISPY PATA"};
-    char selectedBites[5][20] = {"BURGER EXPRESS", "FRENCH FRIES", "POPCORN", "HOTDOGS", "SPUD POTATO"};
-    char selectedDrinks[4][20] = {"COKE", "SPRITE", "PEPSI", "ICE TEA"};
-    char drinks_Size[3][10] = {"REGULAR", "MEDIUM", "LARGE"};
-
-    int isMealChoice1 = 0;
-    int isMealChoice2 = 0;
-    int isMealChoice3 = 0;
-    int isMealChoice4 = 0;
-    int isMealChoice5 = 0;
-
-    int isBitesChoice1 = 0;
-    int isBitesChoice2 = 0;
-    int isBitesChoice3 = 0;
-    int isBitesChoice4 = 0;
-    int isBitesChoice5 = 0;
-
-    int isDrinksChoice1 = 0;
-    int isDrinksChoice2 = 0;
-    int isDrinksChoice3 = 0;
-    int isDrinksChoice4 = 0;
-
-    int isDrinksSize1 = 0;
-    int isDrinksSize2 = 0;
-    int isDrinksSize3 = 0;
-    
-    // START PROGRAM
     pressToContinue();
 
     do
     {
         userMenuChoice = getUserMenuChoice();
 
-            if (userMenuChoice == 1)
-            {   
-                do
-                {
-                    userMealChoice = getUserMealChoice();
-
-                        if (userMealChoice == 1)
-                        {   
-                            isMealChoice1 = userMealChoice;
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &chickenOrderQuantity);
-                            chickenOrderTotal = 0;
-                            chickenOrderTotal += (chickenOrderQuantity * 99.00);
-                            chickenOrderFinalQuantity += chickenOrderQuantity;
-                            chickenOrderFinalTotal += chickenOrderTotal;
-                            mealSubtotal += chickenOrderTotal;
-                        }
-                        else if (userMealChoice == 2)
-                        {
-                            isMealChoice2 = userMealChoice;
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &filletOrderQuantity);
-                            filletOrderTotal = 0;
-                            filletOrderTotal += (filletOrderQuantity * 99.00);
-                            filletOrderFinalQuantity += filletOrderQuantity;
-                            filletOrderFinalTotal += filletOrderTotal;
-                            mealSubtotal += filletOrderTotal;
-                                                        
-                        }
-                        else if (userMealChoice == 3)
-                        {
-                            isMealChoice3 = userMealChoice;
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &spaghettiOrderQuantity);
-                            spaghettiOrderTotal = 0;
-                            spaghettiOrderTotal += (spaghettiOrderQuantity * 129.00);
-                            spaghettiOrderFinalQuantity += spaghettiOrderQuantity;
-                            spaghettiOrderFinalTotal += spaghettiOrderTotal;
-                            mealSubtotal += spaghettiOrderTotal;
-                                                        
-                        }
-                        else if (userMealChoice == 4)
-                        {
-                            isMealChoice4 = userMealChoice;
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &palabokOrderQuantity);
-                            palabokOrderTotal = 0;
-                            palabokOrderTotal += (palabokOrderQuantity * 159.00);
-                            palabokOrderFinalQuantity += palabokOrderQuantity;
-                            palabokOrderFinalTotal += palabokOrderTotal;
-                            mealSubtotal += palabokOrderTotal;
-                                                        
-                        }
-                        else if (userMealChoice == 5)
-                        {
-                            isMealChoice5 = userMealChoice;
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &crispypataOrderQuantity);
-                            crispypataOrderTotal = 0;
-                            crispypataOrderTotal += (crispypataOrderQuantity * 299.00);
-                            crispypataOrderFinalQuantity += crispypataOrderQuantity;
-                            crispypataOrderFinalTotal += crispypataOrderTotal;
-                            mealSubtotal += crispypataOrderTotal;
-                                                        
-                        }
-                        else if (userMealChoice == 6)
-                        {
-                            footer();
-                            printf("\nRETURNING TO MAIN MENU . . . .\n");
-                            successfulMealOrder = 1;
-                            Sleep(3000);
-                        }
-                        else 
-                        {
-                            invalidInput();
-                            successfulMealOrder = 0;
-                        }
-                        
-                                if (userMealChoice <= 5 && userMealChoice >= 1)
-                                {
-                                    mealWishToOrder(&wishToOrder, &successfulMealOrder);
-                                }
-                                   
-                } while (successfulMealOrder != 1);
-
-                successfulOrder = 0;
-            }
-
-            else if (userMenuChoice == 2)
+        if (userMenuChoice == 1)
+        {
+            do
             {
+                userMealChoice = getUserMealChoice();
 
-                do
+                if (userMealChoice >= 1 && userMealChoice <= 5)
                 {
-                    userBitesChoice = getUserBitesChoice();
+                    int index = userMealChoice - 1;
 
-                        if (userBitesChoice == 1)
-                        {   footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &burgerOrderQuantity);
-                            burgerOrderTotal = 0;
-                            burgerOrderTotal += (burgerOrderQuantity * 79.00);
-                            burgerOrderFinalQuantity += burgerOrderQuantity;
-                            burgerOrderFinalTotal += burgerOrderTotal;
-                            biteSubtotal += burgerOrderQuantity;
-                            
-                        }
-                        else if (userBitesChoice == 2)
-                        {
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &friesOrderQuantity);
-                            friesOrderTotal = 0;
-                            friesOrderTotal += (friesOrderQuantity * 59.00);
-                            friesOrderFinalQuantity += friesOrderQuantity;
-                            friesOrderFinalTotal += friesOrderTotal;
-                            biteSubtotal += friesOrderTotal;
-                            
-                        }
-                        else if (userBitesChoice == 3)
-                        {
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &popcornOrderQuantity);
-                            popcornOrderTotal = 0;
-                            popcornOrderTotal += (popcornOrderQuantity * 109.00);
-                            popcornOrderFinalQuantity += popcornOrderQuantity;
-                            popcornOrderFinalTotal += popcornOrderTotal;
-                            biteSubtotal += popcornOrderTotal;
-                            
-                        }
-                        else if (userBitesChoice == 4)
-                        {
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &hotdogOrderQuantity);
-                            hotdogOrderTotal = 0;
-                            hotdogOrderTotal += (hotdogOrderQuantity * 89.00);
-                            hotdogOrderFinalQuantity += hotdogOrderQuantity;
-                            hotdogOrderFinalTotal += hotdogOrderTotal;
-                            biteSubtotal += hotdogOrderTotal;
-                            
-                        }
-                        else if (userBitesChoice == 5)
-                        {
-                            footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &spudOrderQuantity);
-                            spudOrderTotal = 0;
-                            spudOrderTotal += (spudOrderQuantity * 129.00);
-                            spudOrderFinalQuantity += spudOrderQuantity;
-                            spudOrderFinalTotal += spudOrderTotal;
-                            biteSubtotal += spudOrderTotal;
-                            
-                        }
-                        else if (userBitesChoice == 6)
-                        {
-                            footer();
-                            printf("\nRETURNING TO MAIN MENU . . . .\n");
-                            successfulBitesOrder = 1;
-                            Sleep(3000);
-                        }
-                        else 
-                        {
-                            invalidInput();
-                            successfulBitesOrder = 0;
-                        }
-                        
-                                if (userBitesChoice <= 5 && userBitesChoice >= 1)
-                                {
-                                    bitesWishToOrder(&wishToOrder, &successfulBitesOrder);
-                                }
-                                
-                } while (successfulBitesOrder != 1);
-                
-                successfulOrder = 0;
-            }
+                    footer();
+                    printf("\nHOW MANY ORDER(S): ");
+                    scanf("%d", &wishToOrder);
 
-            else if (userMenuChoice == 3)
-            {
+                    if (wishToOrder > 0)
+                    {
+                        mealQuantity[index] += wishToOrder;
+                        mealTotal[index] = mealQuantity[index] * mealPrices[index];
+                        mealSubtotal += wishToOrder * mealPrices[index];
 
-                do
-                {   
-                    userDrinksChoice = getUserDrinksChoice();
-
-                        if (userDrinksChoice == 1)
-                        {   
-                            userDrinksSizeChoice = getUserDrinksSize();
-                            
-                                if (userDrinksSizeChoice == 1)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &cokeRegularOrderQuantity);
-                                    cokeRegularOrderTotal = 0;
-                                    cokeRegularOrderTotal += (cokeRegularOrderQuantity * 39.00);
-                                    cokeRegularOrderFinalQuantity += cokeRegularOrderQuantity;
-                                    cokeRegularOrderFinalTotal += cokeRegularOrderTotal;
-                                    drinkSubtotal += cokeRegularOrderTotal;
-                                    
-                            
-                                }
-                                else if (userDrinksSizeChoice == 2)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &cokeMediumOrderQuantity);
-                                    cokeMediumOrderTotal = 0;
-                                    cokeMediumOrderQuantity += (cokeMediumOrderQuantity * 59.00);
-                                    cokeMediumOrderFinalTotal += cokeMediumOrderQuantity;
-                                    cokeMediumOrderFinalTotal += cokeMediumOrderTotal;
-                                    drinkSubtotal += cokeMediumOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 3)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &cokeLargeOrderQuantity);
-                                    cokeLargeOrderTotal = 0;
-                                    cokeLargeOrderTotal += (cokeLargeOrderQuantity * 79.00);
-                                    cokeLargeOrderFinalQuantity += cokeLargeOrderQuantity;
-                                    cokeLargeOrderFinalTotal += cokeLargeOrderTotal;
-                                    drinkSubtotal += cokeLargeOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 4)
-                                {
-                                    successfulDrinksOrder = 0;
-                                    continue;
-                                }                      
-                        }
-                        else if (userDrinksChoice == 2)
+                        if (askToOrderAgain("DO YOU WISH TO ORDER ANOTHER MEAL?") == 2)
                         {
-                            userDrinksSizeChoice = getUserDrinksSize();
-                            
-                                if (userDrinksSizeChoice == 1)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &spriteRegularOrderQuantity);
-                                    spriteRegularOrderTotal = 0;
-                                    spriteRegularOrderTotal += (spriteRegularOrderQuantity * 39.00);
-                                    spriteRegularOrderFinalQuantity += spriteRegularOrderFinalQuantity;
-                                    drinkSubtotal += spriteRegularOrderTotal;
-                                    
-                            
-                                }
-                                else if (userDrinksSizeChoice == 2)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &spriteMediumOrderQuantity);
-                                    spriteMediumOrderTotal = 0;
-                                    spriteMediumOrderTotal += (spriteMediumOrderQuantity * 59.00);
-                                    spriteMediumOrderFinaluantity += spriteMediumOrderQuantity;
-                                    drinkSubtotal += spriteMediumOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 3)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &spriteLargeOrderQuantity);
-                                    spriteLargeOrderTotal = 0;
-                                    spriteLargeOrderTotal += (spriteLargeOrderQuantity * 79.00);
-                                    spriteLargeOrderFinalQuantity += spriteLargeOrderQuantity;
-                                    drinkSubtotal += spriteLargeOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 4)
-                                {
-                                    successfulDrinksOrder = 0;
-                                    continue;
-                                }
+                            break;
                         }
-                        else if (userDrinksChoice == 3)
-                        {
-                            userDrinksSizeChoice = getUserDrinksSize();
-                            
-                                if (userDrinksSizeChoice == 1)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &pepsiRegularOrderQuantity);
-                                    pepsiRegularOrderTotal = 0;
-                                    pepsiRegularOrderTotal += (pepsiRegularOrderQuantity * 39.00);
-                                    pepsiRegularOrderFinalTotal += pepsiRegularOrderQuantity;
-                                    pepsiRegularOrderFinalTotal += pepsiLargeOrderTotal;
-                                    drinkSubtotal += pepsiRegularOrderTotal;
-                                    
-                            
-                                }
-                                else if (userDrinksSizeChoice == 2)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &pepsiMediumOrderQuantity);
-                                    pepsiMediumOrderTotal = 0;
-                                    pepsiMediumOrderTotal += (pepsiMediumOrderQuantity * 59.00);
-                                    pepsiMediumOrderFinalQuantity += pepsiMediumOrderQuantity;
-                                    pepsiMediumOrderFinalTotal += pepsiMediumOrderTotal;
-                                    drinkSubtotal += pepsiMediumOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 3)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &pepsiLargeOrderQuantity);
-                                    pepsiLargeOrderTotal = 0;
-                                    pepsiLargeOrderTotal += (pepsiLargeOrderQuantity * 79.00);
-                                    pepsiLargeOrderFinalQuantity += pepsiLargeOrderQuantity;
-                                    pepsiLargeOrderFinalTotal += pepsiLargeOrderTotal;
-                                    drinkSubtotal += pepsiLargeOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 4)
-                                {
-                                    successfulDrinksOrder = 0;
-                                    continue;
-                                }
-                        }
-                        else if (userDrinksChoice == 4)
-                        {
-                            userDrinksSizeChoice = getUserDrinksSize();
-                            
-                                if (userDrinksSizeChoice == 1)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &iceteaRegularOrderQuantity);
-                                    iceteaRegularOrderTotal = 0;
-                                    iceteaRegularOrderTotal += (iceteaRegularOrderQuantity * 39.00);
-                                    iceteaRegularOrderFinalQuantity += iceteaRegularOrderQuantity;
-                                    iceteaRegularOrderFinalTotal += iceteaRegularOrderTotal;
-                                    drinkSubtotal += iceteaRegularOrderTotal;
-                                    
-                            
-                                }
-                                else if (userDrinksSizeChoice == 2)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &iceteaMediumOrderQuantity);
-                                    iceteaMediumOrderTotal = 0;
-                                    iceteaMediumOrderTotal += (iceteaMediumOrderQuantity * 59.00);
-                                    iceteaMediumOrderFinalQuantity += iceteaMediumOrderQuantity;
-                                    iceteaMediumOrderFinalTotal += iceteaMediumOrderTotal;
-                                    drinkSubtotal += iceteaMediumOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 3)
-                                {
-                                    footer();
-                                    printf("\nHOW MANY ORDER(S): ");
-                                    scanf("%d", &iceteaLargeOrderQuantity);
-                                    iceteaLargeOrderTotal = 0;
-                                    iceteaLargeOrderTotal += (iceteaLargeOrderQuantity * 79.00);
-                                    iceteaLargeOrderFinalQuantity += iceteaLargeOrderQuantity;
-                                    iceteaLargeOrderFinalTotal += iceteaLargeOrderTotal;
-                                    drinkSubtotal += iceteaLargeOrderTotal;
-                                    
-                                }
-                                else if (userDrinksSizeChoice == 4)
-                                {
-                                    successfulDrinksOrder = 0;
-                                    continue;
-                                }
-                        }
-                        else if (userDrinksChoice == 5)
-                        {
-                            successfulDrinksOrder = 1;
-                        }
-                        else 
-                        {
-                            successfulDrinksOrder = 0;
-                            invalidInput(); 
-                        }
-                        
-                                if (userDrinksSizeChoice <= 4 && userDrinksSizeChoice >= 1)
-                                {
-                                    drinksWishToOrder(&wishToOrder, &successfulDrinksOrder);
-                                }
-
-                } while (successfulDrinksOrder != 1);
-                
-                successfulOrder = 0;
-            } 
-
-            else if (userMenuChoice == 4)
-            {
-                total = mealSubtotal + biteSubtotal + drinkSubtotal;
-
-                if (total > 0)
+                    }
+                    else
+                    {
+                        invalidInput();
+                    }
+                }
+                else if (userMealChoice == 6)
                 {
-                    confirmOrder(selectedMeals, isMealChoice1, chickenOrderFinalQuantity, chickenOrderFinalTotal
-                                , isMealChoice2, filletOrderFinalQuantity, filletOrderFinalTotal
-                                , isMealChoice3, spaghettiOrderFinalQuantity, spaghettiOrderFinalTotal
-                                , isMealChoice4, palabokOrderFinalQuantity, palabokOrderFinalTotal
-                                , isMealChoice5, crispypataOrderFinalQuantity, crispypataOrderFinalTotal);
+                    footer();
+                    printf("\nRETURNING TO MAIN MENU . . . .\n");
+                    Sleep(1500);
+                    break;
                 }
                 else
                 {
-                    printf("\nYOU HAVE TO BUY SOMETHING FIRST\n");
-                    successfulOrder = 0;
+                    invalidInput();
                 }
-                
-            }
 
-            else if (userMenuChoice == 5)
+            } while (1);
+        }
+
+        else if (userMenuChoice == 2)
+        {
+            do
             {
-                successfulOrder = 1;
-            }
+                userBitesChoice = getUserBitesChoice();
 
-            else {
+                if (userBitesChoice >= 1 && userBitesChoice <= 5)
+                {
+                    int index = userBitesChoice - 1;
+
+                    footer();
+                    printf("\nHOW MANY ORDER(S): ");
+                    scanf("%d", &wishToOrder);
+
+                    if (wishToOrder > 0)
+                    {
+                        biteQuantity[index] += wishToOrder;
+                        biteTotal[index] = biteQuantity[index] * bitePrices[index];
+                        biteSubtotal += wishToOrder * bitePrices[index];
+
+                        if (askToOrderAgain("DO YOU WISH TO ORDER MORE BITES?") == 2)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        invalidInput();
+                    }
+                }
+                else if (userBitesChoice == 6)
+                {
+                    footer();
+                    printf("\nRETURNING TO MAIN MENU . . . .\n");
+                    Sleep(1500);
+                    break;
+                }
+                else
+                {
+                    invalidInput();
+                }
+
+            } while (1);
+        }
+
+        else if (userMenuChoice == 3)
+        {
+            do
+            {
+                userDrinksChoice = getUserDrinksChoice();
+
+                if (userDrinksChoice >= 1 && userDrinksChoice <= 4)
+                {
+                    int drinkIndex = userDrinksChoice - 1;
+
+                    do
+                    {
+                        userDrinksSizeChoice = getUserDrinksSize();
+
+                        if (userDrinksSizeChoice >= 1 &&
+                            userDrinksSizeChoice <= 3)
+                        {
+                            int sizeIndex = userDrinksSizeChoice - 1;
+
+                            footer();
+                            printf("\nHOW MANY ORDER(S): ");
+                            scanf("%d", &wishToOrder);
+
+                            if (wishToOrder > 0)
+                            {
+                                drinkQuantity[drinkIndex][sizeIndex] += wishToOrder;
+
+                                drinkTotal[drinkIndex][sizeIndex] =
+                                    drinkQuantity[drinkIndex][sizeIndex] *
+                                    drinkPrices[sizeIndex];
+
+                                drinkSubtotal +=
+                                    wishToOrder * drinkPrices[sizeIndex];
+
+                                if (askToOrderAgain("DO YOU WISH TO ORDER MORE DRINKS?") == 2)
+                                {
+                                    userDrinksSizeChoice = 5;
+                                }
+                            }
+                            else
+                            {
+                                invalidInput();
+                            }
+                        }
+                        else if (userDrinksSizeChoice == 4)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            invalidInput();
+                        }
+
+                    } while (userDrinksSizeChoice != 5);
+                }
+                else if (userDrinksChoice == 5)
+                {
+                    footer();
+                    printf("\nRETURNING TO MAIN MENU . . . .\n");
+                    Sleep(1500);
+                    break;
+                }
+                else
+                {
+                    invalidInput();
+                }
+
+            } while (1);
+        }
+
+        else if (userMenuChoice == 4)
+        {
+            total = mealSubtotal + biteSubtotal + drinkSubtotal;
+
+            if (total > 0)
+            {
+                showOrder(
+                    selectedMeals,
+                    mealQuantity,
+                    mealTotal,
+                    selectedBites,
+                    biteQuantity,
+                    biteTotal,
+                    selectedDrinks,
+                    drinkSizes,
+                    drinkQuantity,
+                    drinkTotal,
+                    total
+                );
+
+                printf("\nPress ENTER to return to the main menu...");
+                while (getchar() != '\n');
+                getchar();
                 system("cls");
-                invalidInput();
-                successfulOrder = 0;
             }
-            
-            
-    } while (successfulOrder != 1);
-    
-    
+            else
+            {
+                printf("\nYOU HAVE TO BUY SOMETHING FIRST\n");
+                Sleep(1500);
+            }
+        }
+
+        else if (userMenuChoice == 5)
+        {
+            printf("\nThank you for using EXPRESS DINER KIOSK!\n");
+            break;
+        }
+
+        else
+        {
+            system("cls");
+            invalidInput();
+        }
+
+    } while (1);
 
     return 0;
 }
