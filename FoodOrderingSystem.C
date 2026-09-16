@@ -212,11 +212,11 @@ int main() {
 
     // SUBTOTAL INDEX 
 
-    int totalIndex = 0;
+    int Index = 0;
 
     // TOTAL
 
-    double totalHandler[3] = {0};
+    double itemCost = 0.0;
     double finalTotal = 0.0;
 
     // MEAL, BITES, DRINKS SUBTOTAL
@@ -260,9 +260,10 @@ int main() {
     {
         getUserChoice = getUserMenuChoice();
 
+        Index = getUserChoice - 1;
+
             if (getUserChoice == 1)
             {
-                totalIndex = getUserChoice - 1;
 
                 do
                 {
@@ -276,17 +277,17 @@ int main() {
                             printf("HOW MANY ORDER(S): ");
                             scanf("%d", &mealQuantity[index]);
 
-                            totalHandler[totalIndex] = mealPrices[index] * mealQuantity[index];
+                            itemCost = mealPrices[index] * mealQuantity[index];
                             mealTotalQuantityHandler[index] += mealQuantity[index];
-                            mealTotalHandler[index] += totalHandler[totalIndex];
-                            menuSubTotalHandler[totalIndex] += totalHandler[totalIndex];
+                            mealTotalHandler[index] += itemCost;
+                            menuSubTotalHandler[0] += itemCost;
 
                             printLoadingDots("PROCESSING ORDER", 4, 500);
                             printf("\nADDED TO ORDER!\n");
 
                             Sleep(2000);
 
-                            orderAgain = askToOrderAgain(selectedOrder, totalIndex);
+                            orderAgain = askToOrderAgain(selectedOrder, Index);
                             
                                 if (orderAgain == 1)
                                 {
@@ -323,7 +324,6 @@ int main() {
 
             else if (getUserChoice == 2)
             {
-                totalIndex = getUserChoice - 1;
 
                 do
                 {
@@ -337,17 +337,17 @@ int main() {
                             printf("HOW MANY ORDER(S): ");
                             scanf("%d", &bitesQuantity[index]);
 
-                            totalHandler[totalIndex] = bitesPrices[index] * bitesQuantity[index];
+                            itemCost = bitesPrices[index] * bitesQuantity[index];
                             bitesTotalQuantityHandler[index] += bitesQuantity[index];
-                            bitesTotalHandler[index] += totalHandler[totalIndex];
-                            menuSubTotalHandler[totalIndex] += totalHandler[totalIndex];
+                            bitesTotalHandler[index] += itemCost;
+                            menuSubTotalHandler[1] += itemCost;
                             
                             printLoadingDots("PROCESSING ORDER", 4, 500);
                             printf("\nADDED TO ORDER!\n");
 
                             Sleep(2000);
 
-                            orderAgain = askToOrderAgain(selectedOrder, totalIndex);
+                            orderAgain = askToOrderAgain(selectedOrder, Index);
                             
                                 if (orderAgain == 1)
                                 {
@@ -381,7 +381,6 @@ int main() {
 
             else if (getUserChoice == 3)
             {
-                totalIndex = getUserChoice - 1;
 
                 do
                 {
@@ -395,17 +394,17 @@ int main() {
                             printf("HOW MANY ORDER(S): ");
                             scanf("%d", &drinksQuantity[index]);
 
-                            totalHandler[totalIndex] = drinksPrices[index] * drinksQuantity[index];
+                            itemCost = drinksPrices[index] * drinksQuantity[index];
                             drinksTotalQuantityHandler[index] += drinksQuantity[index];
-                            drinksTotalHandler[index] += totalHandler[totalIndex];
-                            menuSubTotalHandler[totalIndex] += totalHandler[totalIndex];
+                            drinksTotalHandler[index] += itemCost;
+                            menuSubTotalHandler[2] += itemCost;
                             
                             printLoadingDots("PROCESSING ORDER", 4, 500);
                             printf("\nADDED TO ORDER!\n");
 
                             Sleep(2000);
 
-                            orderAgain = askToOrderAgain(selectedOrder, totalIndex);
+                            orderAgain = askToOrderAgain(selectedOrder, Index);
                             
                                 if (orderAgain == 1)
                                 {
@@ -462,6 +461,8 @@ int main() {
                             printf("| %-20s - x%-5d PHP %7.2lf\n", bites[i], bitesTotalQuantityHandler[i], bitesTotalHandler[i]);
                         }
                         
+                    }
+
                     for (int i = 0; i < 4; i++)
                     {
                         if (drinksTotalQuantityHandler[i] > 0)
@@ -469,9 +470,7 @@ int main() {
                             printf("| %-20s - x%-5d PHP %7.2lf\n", drinks[i], drinksTotalQuantityHandler[i], drinksTotalHandler[i]);
                         }
                     }
-                        
-                        
-                    }
+
                     for (int i = 0; i < 3; i++)
                     {
                         if (menuSubTotalHandler[i] > 0)
@@ -483,9 +482,6 @@ int main() {
                     }
                     printf("\n| GRAND TOTAL:                  PHP %7.2lf", finalTotal);
                     footer();
-                    
-                    footer();
-                    
                     Sleep(3000);
 
                     do
