@@ -438,9 +438,10 @@ int main() {
             
             else if (getUserChoice == 4)
             {
+                finalTotal = 0.0;
                 for (int i = 0; i < 3; i++)
                 {
-                    finalTotal += totalHandler[i];
+                    finalTotal += menuSubTotalHandler[i];
                 }
                 
                 if (finalTotal > 0)
@@ -458,12 +459,16 @@ int main() {
                         }
                         if (bitesTotalQuantityHandler[i] > 0)
                         {
-                             printf("| %-20s - x%-5d PHP %7.2lf\n", bites[i], bitesTotalQuantityHandler[i], bitesTotalHandler[i]);
+                            printf("| %-20s - x%-5d PHP %7.2lf\n", bites[i], bitesTotalQuantityHandler[i], bitesTotalHandler[i]);
                         }
+                        
+                    for (int i = 0; i < 4; i++)
+                    {
                         if (drinksTotalQuantityHandler[i] > 0)
                         {
-                             printf("| %-20s - x%-5d PHP %7.2lf\n", drinks[i], drinksTotalQuantityHandler[i], drinksTotalHandler[i]);
+                            printf("| %-20s - x%-5d PHP %7.2lf\n", drinks[i], drinksTotalQuantityHandler[i], drinksTotalHandler[i]);
                         }
+                    }
                         
                         
                     }
@@ -471,11 +476,13 @@ int main() {
                     {
                         if (menuSubTotalHandler[i] > 0)
                         {
-                            printf("\n| %s SUBTOTAL:\t\tPHP %7.2lf", selectedOrder[i], menuSubTotalHandler[i]);
+                            printf("\n| %-7s SUBTOTAL:               PHP %7.2lf", selectedOrder[i], menuSubTotalHandler[i]);
                         }
                         
                         
                     }
+                    printf("\n| GRAND TOTAL:                  PHP %7.2lf", finalTotal);
+                    footer();
                     
                     footer();
                     
@@ -493,7 +500,7 @@ int main() {
 
                                 printf("\nYOU MAY NOW PROCEED TO PAYMENT");
                                 printf("\n\nYOUR ORDER NUMBER IS 00%d", randomNum);
-                                return false;
+                                return 0;
                             }
                             else if (confirmOrder == 'N' || confirmOrder == 'n')
                             {
@@ -520,9 +527,10 @@ int main() {
             }
             else if (getUserChoice == 5)
             {
+                finalTotal = 0.0;
                 for (int i = 0; i < 3; i++)
                 {
-                    finalTotal += totalHandler[i];
+                    finalTotal += menuSubTotalHandler[i];
                 }
 
                     if (finalTotal > 0)
@@ -540,7 +548,7 @@ int main() {
                                 {
                                     system("cls");
                                     printf("THANK YOU FOR USING EXPRESS DINER KIOSK!");
-                                    return false;
+                                    return 0;
                                 }
                                 else if (cancelOrder == 'N' || cancelOrder == 'n')
                                 {
@@ -575,7 +583,7 @@ int main() {
             
             
             
-    } while (true);
+    } while (1);
     
 
     return 0;
