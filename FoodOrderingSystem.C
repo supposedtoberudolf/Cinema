@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <windows.h>
+#include <time.h>
+
+void printLoadingDots(const char *message, int dotCount, int delayMs) {
+    
+    printf("\n%s", message);
+    fflush(stdout);
+
+    for (int i = 0; i < dotCount; i++) {
+        Sleep(delayMs);
+        printf(" .");
+        fflush(stdout);
+    }
+    printf("\n");
+}
 
 void pressToContinue()
 {
@@ -17,13 +32,13 @@ void pressToContinue()
 
 void footer()
 {
-    printf("\n=============================================\n");
+    printf("\n=============================================\n\n");
 }
 
 void invalidInput()
 {
-    printf("\nInvalid Input");
-    printf("\nPlease Try Again\n");
+    printf("\nINVALID INPUT");
+    printf("\nPLEASE TRY AGAIN\n");
 }
 
 int getUserMenuChoice()
@@ -92,10 +107,10 @@ int getUserDrinksChoice()
     printf("\n=============================================");
     printf("\n\t    ------ DRINKS ------");
     printf("\n=============================================\n");
-    printf("\n[1] COKE");
-    printf("\n[2] SPRITE");
-    printf("\n[3] PEPSI");
-    printf("\n[4] ICE TEA");
+    printf("\n[1] COKE\t-> PHP 59");
+    printf("\n[2] SPRITE\t-> PHP 59");
+    printf("\n[3] PEPSI\t-> PHP 59");
+    printf("\n[4] ICE TEA\t-> PHP 49");
     printf("\n[5] RETURN TO MAIN MENU\n");
 
     printf("\nENTER YOUR CHOICE: ");
@@ -104,121 +119,28 @@ int getUserDrinksChoice()
     return choice;
 }
 
-int getUserDrinksSize()
-{
-    int choice;
+int askToOrderAgain(char selectedOrder[3][10], int i) {
 
-    printf("\n=============================================");
-    printf("\n\t  ------ DRINKS SIZES ------");
-    printf("\n=============================================\n");
-    printf("\n[1] REGULAR\t-> PHP 39");
-    printf("\n[2] MEDIUM\t-> PHP 59");
-    printf("\n[3] LARGE\t-> PHP 79");
-    printf("\n[4] RETURN TO DRINKS MENU\n");
-
-    printf("\nENTER YOUR CHOICE: ");
-    scanf("%d", &choice);
-
-    return choice;
-}
-
-int askToOrderAgain(char message[])
-{
-    int choice;
+    int choice = 0;
 
     do
     {
-        footer();
-        printf("\n%s", message);
-        printf("\n[1] YES");
-        printf("\n[2] NO\n");
+    footer();
+    printf("DO YOU WISH TO ORDER %s AGAIN? ", selectedOrder[i]);
+    printf("\n[1] YES");
+    printf("\n[2] NO");
 
-        printf("\nCHOOSE ONE: ");
-        scanf("%d", &choice);
-
-        if (choice != 1 && choice != 2)
-        {
-            invalidInput();
-        }
-
-    } while (choice != 1 && choice != 2);
-
+    printf("\n\nSELECT OPTION: ");
+    scanf("%d", &choice);
+    } while ((choice != 2) && (choice != 1));
+    
     return choice;
+
 }
 
-void showOrder(
-    char meals[5][20],
-    int mealQuantity[5],
-    float mealTotal[5],
-    char bites[5][20],
-    int biteQuantity[5],
-    float biteTotal[5],
-    char drinks[4][20],
-    char sizes[3][10],
-    int drinkQuantity[4][3],
-    float drinkTotal[4][3],
-    float total)
-{
-    int i;
-    int j;
+int main() {
 
-    printf("\n=============================================");
-    printf("\n        ------ PURCHASE OVERVIEW ------");
-    printf("\n=============================================\n");
-
-    for (i = 0; i < 5; i++)
-    {
-        if (mealQuantity[i] > 0)
-        {
-            printf("\n%s - x%d\t\tPHP %.2f",
-                   meals[i], mealQuantity[i], mealTotal[i]);
-        }
-    }
-
-    for (i = 0; i < 5; i++)
-    {
-        if (biteQuantity[i] > 0)
-        {
-            printf("\n%s - x%d\t\tPHP %.2f",
-                   bites[i], biteQuantity[i], biteTotal[i]);
-        }
-    }
-
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            if (drinkQuantity[i][j] > 0)
-            {
-                printf("\n%s %s - x%d\tPHP %.2f",
-                       drinks[i], sizes[j],
-                       drinkQuantity[i][j],
-                       drinkTotal[i][j]);
-            }
-        }
-    }
-
-    printf("\n\n---------------------------------------------");
-    printf("\nTOTAL: \t\t\tPHP %.2f", total);
-    printf("\n=============================================\n");
-}
-
-int main()
-{
-    int userMenuChoice;
-    int userMealChoice;
-    int userBitesChoice;
-    int userDrinksChoice;
-    int userDrinksSizeChoice;
-
-    int wishToOrder;
-
-    float mealSubtotal = 0.0;
-    float biteSubtotal = 0.0;
-    float drinkSubtotal = 0.0;
-    float total = 0.0;
-
-    char selectedMeals[5][20] =
+    char meals[5][20] = 
     {
         "CHICKEN W/ GRAVY",
         "CHICKEN FILLET",
@@ -227,7 +149,18 @@ int main()
         "CRISPY PATA"
     };
 
-    char selectedBites[5][20] =
+    double mealPrices[5] = 
+    {
+        99.00,
+        99.00,
+        129.00,
+        159.00,
+        299.00
+    };
+
+    int mealQuantity[5] = {0};
+
+    char bites[5][20] = 
     {
         "BURGER EXPRESS",
         "FRENCH FRIES",
@@ -236,7 +169,18 @@ int main()
         "SPUD POTATO"
     };
 
-    char selectedDrinks[4][20] =
+    double bitesPrices[5] =
+    {
+        79.00,
+        59.00,
+        109.00,
+        89.00,
+        129.00
+    };
+    
+    int bitesQuantity[5] = {0};
+
+    char drinks[4][10] =
     {
         "COKE",
         "SPRITE",
@@ -244,248 +188,395 @@ int main()
         "ICE TEA"
     };
 
-    char drinkSizes[3][10] =
+    double drinksPrices[4] =
     {
-        "REGULAR",
-        "MEDIUM",
-        "LARGE"
+        59.00,
+        59.00,
+        59.00,
+        49.00  
     };
 
-    float mealPrices[5] =
+    int drinksQuantity[5] = {0};
+
+    char selectedOrder[3][10] = 
     {
-        99.00, 99.00, 129.00, 159.00, 299.00
+        "MEAL",
+        "BITES",
+        "DRINKS"
     };
+    
+    int getUserChoice = 0;
+    int userMealChoice = 0;
+    int userBitesChoice = 0;
+    int userDrinksChoice = 0;
 
-    float bitePrices[5] =
-    {
-        79.00, 59.00, 109.00, 89.00, 129.00
-    };
+    // SUBTOTAL INDEX 
 
-    float drinkPrices[3] =
-    {
-        39.00, 59.00, 79.00
-    };
+    int totalIndex = 0;
 
-    int mealQuantity[5] = {0};
-    float mealTotal[5] = {0};
+    // TOTAL
 
-    int biteQuantity[5] = {0};
-    float biteTotal[5] = {0};
+    double totalHandler[3] = {0};
+    double finalTotal = 0.0;
 
-    int drinkQuantity[4][3] = {0};
-    float drinkTotal[4][3] = {0};
+    // MEAL, BITES, DRINKS SUBTOTAL
+
+    double menuSubTotalHandler[3] = {0};
+
+    // MEAL QUANTITY & TOTAL
+    int mealTotalQuantityHandler[5] = {0};
+    double mealTotalHandler[5] = {0};
+
+    // BITES QUANTITY
+    int bitesTotalQuantityHandler[5] = {0};
+    double bitesTotalHandler[5] = {0};
+
+    // DRINKS QUANTITY & TOTAL
+    int drinksTotalQuantityHandler[5] = {0};
+    double drinksTotalHandler[5] = {0};
+
+    // FLAG VARIABLES
+
+    int MealOrderDone = 0;
+    int BitesOrderDone = 0;
+    int drinksOrderDone = 0;
+    int orderDone = 0;
+
+    int orderAgain = 0;
+    int continueOrder = 0;
+    char cancelOrder = '\0';
+    char confirmOrder = '\0';
+
+    // RANDOM NUMBER
+
+    srand(time(NULL));
+    int randomNum = (rand() % (100 - 50 + 1)) + 50;
+
+    // START PROGRAM
 
     pressToContinue();
 
     do
     {
-        userMenuChoice = getUserMenuChoice();
+        getUserChoice = getUserMenuChoice();
 
-        if (userMenuChoice == 1)
-        {
-            do
+            if (getUserChoice == 1)
             {
-                userMealChoice = getUserMealChoice();
+                totalIndex = getUserChoice - 1;
 
-                if (userMealChoice >= 1 && userMealChoice <= 5)
+                do
                 {
-                    int index = userMealChoice - 1;
+                    userMealChoice = getUserMealChoice();
 
-                    footer();
-                    printf("\nHOW MANY ORDER(S): ");
-                    scanf("%d", &wishToOrder);
-
-                    if (wishToOrder > 0)
-                    {
-                        mealQuantity[index] += wishToOrder;
-                        mealTotal[index] = mealQuantity[index] * mealPrices[index];
-                        mealSubtotal += wishToOrder * mealPrices[index];
-
-                        if (askToOrderAgain("DO YOU WISH TO ORDER ANOTHER MEAL?") == 2)
+                        if ((userMealChoice <= 5) && (userMealChoice >= 1))
                         {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        invalidInput();
-                    }
-                }
-                else if (userMealChoice == 6)
-                {
-                    footer();
-                    printf("\nRETURNING TO MAIN MENU . . . .\n");
-                    Sleep(1500);
-                    break;
-                }
-                else
-                {
-                    invalidInput();
-                }
-
-            } while (1);
-        }
-
-        else if (userMenuChoice == 2)
-        {
-            do
-            {
-                userBitesChoice = getUserBitesChoice();
-
-                if (userBitesChoice >= 1 && userBitesChoice <= 5)
-                {
-                    int index = userBitesChoice - 1;
-
-                    footer();
-                    printf("\nHOW MANY ORDER(S): ");
-                    scanf("%d", &wishToOrder);
-
-                    if (wishToOrder > 0)
-                    {
-                        biteQuantity[index] += wishToOrder;
-                        biteTotal[index] = biteQuantity[index] * bitePrices[index];
-                        biteSubtotal += wishToOrder * bitePrices[index];
-
-                        if (askToOrderAgain("DO YOU WISH TO ORDER MORE BITES?") == 2)
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        invalidInput();
-                    }
-                }
-                else if (userBitesChoice == 6)
-                {
-                    footer();
-                    printf("\nRETURNING TO MAIN MENU . . . .\n");
-                    Sleep(1500);
-                    break;
-                }
-                else
-                {
-                    invalidInput();
-                }
-
-            } while (1);
-        }
-
-        else if (userMenuChoice == 3)
-        {
-            do
-            {
-                userDrinksChoice = getUserDrinksChoice();
-
-                if (userDrinksChoice >= 1 && userDrinksChoice <= 4)
-                {
-                    int drinkIndex = userDrinksChoice - 1;
-
-                    do
-                    {
-                        userDrinksSizeChoice = getUserDrinksSize();
-
-                        if (userDrinksSizeChoice >= 1 &&
-                            userDrinksSizeChoice <= 3)
-                        {
-                            int sizeIndex = userDrinksSizeChoice - 1;
+                            int index = userMealChoice - 1;
 
                             footer();
-                            printf("\nHOW MANY ORDER(S): ");
-                            scanf("%d", &wishToOrder);
+                            printf("HOW MANY ORDER(S): ");
+                            scanf("%d", &mealQuantity[index]);
 
-                            if (wishToOrder > 0)
-                            {
-                                drinkQuantity[drinkIndex][sizeIndex] += wishToOrder;
+                            totalHandler[totalIndex] = mealPrices[index] * mealQuantity[index];
+                            mealTotalQuantityHandler[index] += mealQuantity[index];
+                            mealTotalHandler[index] += totalHandler[totalIndex];
+                            menuSubTotalHandler[totalIndex] += totalHandler[totalIndex];
 
-                                drinkTotal[drinkIndex][sizeIndex] =
-                                    drinkQuantity[drinkIndex][sizeIndex] *
-                                    drinkPrices[sizeIndex];
+                            printLoadingDots("PROCESSING ORDER", 4, 500);
+                            printf("\nADDED TO ORDER!\n");
 
-                                drinkSubtotal +=
-                                    wishToOrder * drinkPrices[sizeIndex];
+                            Sleep(2000);
 
-                                if (askToOrderAgain("DO YOU WISH TO ORDER MORE DRINKS?") == 2)
+                            orderAgain = askToOrderAgain(selectedOrder, totalIndex);
+                            
+                                if (orderAgain == 1)
                                 {
-                                    userDrinksSizeChoice = 5;
+                                    MealOrderDone = 0;
+                                    printLoadingDots("RETURNING TO MEAL MENU", 4, 500);
+                                    continue;
                                 }
-                            }
-                            else
-                            {
-                                invalidInput();
-                            }
+                                else if (orderAgain == 2)
+                                {
+                                    MealOrderDone = 1;
+                                    printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                                    break;
+                                }
+                                
+                                
+                            
                         }
-                        else if (userDrinksSizeChoice == 4)
+                        else if (userMealChoice == 6)
                         {
+                            MealOrderDone = 1;
+                            printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
                             break;
                         }
-                        else
+                                               
+                        else 
                         {
                             invalidInput();
                         }
 
-                    } while (userDrinksSizeChoice != 5);
-                }
-                else if (userDrinksChoice == 5)
+                        
+                } while (MealOrderDone != 1);
+                
+            }
+
+            else if (getUserChoice == 2)
+            {
+                totalIndex = getUserChoice - 1;
+
+                do
                 {
+                    userBitesChoice = getUserBitesChoice();          
+
+                        if ((userBitesChoice <= 5) && (userBitesChoice >= 1))
+                        {
+                            int index = userBitesChoice - 1;
+
+                            footer();
+                            printf("HOW MANY ORDER(S): ");
+                            scanf("%d", &bitesQuantity[index]);
+
+                            totalHandler[totalIndex] = bitesPrices[index] * bitesQuantity[index];
+                            bitesTotalQuantityHandler[index] += bitesQuantity[index];
+                            bitesTotalHandler[index] += totalHandler[totalIndex];
+                            menuSubTotalHandler[totalIndex] += totalHandler[totalIndex];
+                            
+                            printLoadingDots("PROCESSING ORDER", 4, 500);
+                            printf("\nADDED TO ORDER!\n");
+
+                            Sleep(2000);
+
+                            orderAgain = askToOrderAgain(selectedOrder, totalIndex);
+                            
+                                if (orderAgain == 1)
+                                {
+                                    BitesOrderDone = 0;
+                                    printLoadingDots("RETURNING TO BITES MENU", 4, 500);
+                                    continue;
+                                }
+                                else if (orderAgain == 2)
+                                {
+                                    BitesOrderDone = 1;
+                                    printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                                    break;
+                                }
+                        }
+                        else if (userBitesChoice == 6)
+                        {
+                            BitesOrderDone = 1;
+                            printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                            break;
+                        }
+                        else 
+                        {
+                            invalidInput();
+                        }
+
+                } while (BitesOrderDone != 1);
+                
+                
+                    
+            }
+
+            else if (getUserChoice == 3)
+            {
+                totalIndex = getUserChoice - 1;
+
+                do
+                {
+                    userDrinksChoice = getUserDrinksChoice();          
+
+                        if ((userDrinksChoice <= 4) && (userDrinksChoice >= 1))
+                        {
+                            int index = userDrinksChoice - 1;
+
+                            footer();
+                            printf("HOW MANY ORDER(S): ");
+                            scanf("%d", &drinksQuantity[index]);
+
+                            totalHandler[totalIndex] = drinksPrices[index] * drinksQuantity[index];
+                            drinksTotalQuantityHandler[index] += drinksQuantity[index];
+                            drinksTotalHandler[index] += totalHandler[totalIndex];
+                            menuSubTotalHandler[totalIndex] += totalHandler[totalIndex];
+                            
+                            printLoadingDots("PROCESSING ORDER", 4, 500);
+                            printf("\nADDED TO ORDER!\n");
+
+                            Sleep(2000);
+
+                            orderAgain = askToOrderAgain(selectedOrder, totalIndex);
+                            
+                                if (orderAgain == 1)
+                                {
+                                    drinksOrderDone = 0;
+                                    printLoadingDots("RETURNING TO DRINKS MENU", 4, 500);
+                                    continue;
+                                }
+                                else if (orderAgain == 2)
+                                {
+                                    drinksOrderDone = 1;
+                                    printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                                    break;
+                                }
+                        }
+                        else if (userDrinksChoice == 5)
+                        {
+                            drinksOrderDone = 1;
+                            printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                            break;
+                        }
+                        else 
+                        {
+                            invalidInput();
+                        }
+                } while (drinksOrderDone != 1);
+                
+                
+                    
+            }
+            
+            else if (getUserChoice == 4)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    finalTotal += totalHandler[i];
+                }
+                
+                if (finalTotal > 0)
+                {
+                    printf("\n=============================================");
+                    printf("\n\t      PURCHASE OVERVIEW");
+                    printf("\n=============================================\n");
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (mealTotalQuantityHandler[i] > 0)
+                        {
+                            printf("| %-20s - x%-5d PHP %7.2lf\n", meals[i], mealTotalQuantityHandler[i], mealTotalHandler[i]);
+                            
+                        }
+                        if (bitesTotalQuantityHandler[i] > 0)
+                        {
+                             printf("| %-20s - x%-5d PHP %7.2lf\n", bites[i], bitesTotalQuantityHandler[i], bitesTotalHandler[i]);
+                        }
+                        if (drinksTotalQuantityHandler[i] > 0)
+                        {
+                             printf("| %-20s - x%-5d PHP %7.2lf\n", drinks[i], drinksTotalQuantityHandler[i], drinksTotalHandler[i]);
+                        }
+                        
+                        
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (menuSubTotalHandler[i] > 0)
+                        {
+                            printf("\n| %s SUBTOTAL:\t\tPHP %7.2lf", selectedOrder[i], menuSubTotalHandler[i]);
+                        }
+                        
+                        
+                    }
+                    
                     footer();
-                    printf("\nRETURNING TO MAIN MENU . . . .\n");
-                    Sleep(1500);
-                    break;
+                    
+                    Sleep(3000);
+
+                    do
+                    {
+                        printf("\nDO YOU WISH TO PROCEED TO PAYMENT?");
+                        printf("\n\nCONFIRM ORDER(Y/N): ");
+                        scanf(" %c", &confirmOrder);
+
+                            if (confirmOrder == 'Y' || confirmOrder == 'y')
+                            {
+                                printLoadingDots("WORKING ON YOUR ORDER", 4, 500);
+
+                                printf("\nYOU MAY NOW PROCEED TO PAYMENT");
+                                printf("\n\nYOUR ORDER NUMBER IS 00%d", randomNum);
+                                return false;
+                            }
+                            else if (confirmOrder == 'N' || confirmOrder == 'n')
+                            {
+                                printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                                orderDone = 1;
+                            }
+                            else 
+                            {
+                                orderDone = 0;
+                                invalidInput();
+                            }
+                    } while (orderDone != 1);
+                    
+                    
+                    
                 }
                 else
                 {
-                    invalidInput();
+                    printf("\nYOU HAVE TO BUY SOMETHING FIRST.\n");
+                    Sleep(2000);
+                    printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                }
+                
+            }
+            else if (getUserChoice == 5)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    finalTotal += totalHandler[i];
                 }
 
-            } while (1);
-        }
+                    if (finalTotal > 0)
+                    {
+                       do
+                       {    
+                            footer();
+                            printf("\nPLEASE NOTE THAT YOUR PENDING ORDERS WILL BE DISCARDED");
+                            printf("\nARE YOU SURE YOU WANT TO EXIT?");
 
-        else if (userMenuChoice == 4)
-        {
-            total = mealSubtotal + biteSubtotal + drinkSubtotal;
+                            printf("\n\n(Y/N): ");
+                            scanf(" %c", &cancelOrder);
 
-            if (total > 0)
-            {
-                showOrder(
-                    selectedMeals,
-                    mealQuantity,
-                    mealTotal,
-                    selectedBites,
-                    biteQuantity,
-                    biteTotal,
-                    selectedDrinks,
-                    drinkSizes,
-                    drinkQuantity,
-                    drinkTotal,
-                    total
-                );
+                                if (cancelOrder == 'Y' || cancelOrder == 'y')
+                                {
+                                    system("cls");
+                                    printf("THANK YOU FOR USING EXPRESS DINER KIOSK!");
+                                    return false;
+                                }
+                                else if (cancelOrder == 'N' || cancelOrder == 'n')
+                                {
+                                    printLoadingDots("RETURNING TO MAIN MENU", 4, 500);
+                                    continueOrder = 1;
+                                }
+                                else 
+                                {
+                                    continueOrder = 0;
+                                    invalidInput();
+                                }
+                                
 
-                printf("\nPress ENTER to return to the main menu...");
-                while (getchar() != '\n');
-                getchar();
-                system("cls");
+                       } while (continueOrder != 1);
+
+                            
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("THANK YOU FOR USING EXPRESS DINER KIOSK!");
+                        break;
+                    }
+                    
+                
+                
             }
             else
             {
-                printf("\nYOU HAVE TO BUY SOMETHING FIRST\n");
-                Sleep(1500);
+                invalidInput();
             }
-        }
-
-        else if (userMenuChoice == 5)
-        {
-            printf("\nThank you for using EXPRESS DINER KIOSK!\n");
-            break;
-        }
-
-        else
-        {
-            system("cls");
-            invalidInput();
-        }
-
-    } while (1);
+            
+            
+            
+    } while (true);
+    
 
     return 0;
 }
