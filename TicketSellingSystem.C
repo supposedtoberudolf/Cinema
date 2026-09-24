@@ -134,7 +134,7 @@ int main() {
 void header() 
 {
     printf("\n====================================");
-    printf("\n\t   CINEMA TICKET");
+    printf("\n\t   CINEMAX TICKET");
     printf("\n====================================\n");
 }
 
