@@ -104,9 +104,12 @@ int main() {
     }
 
     system("cls");
+    printf("\n====================================");
+    printf("\n\t  RESERVED SEATS");
+    printf("\n====================================\n\n");
     for (int i = 0; i < seatQuantity; i++)
     {
-        printf("%s\n", seatChoice[i]);
+        printf("%d. [%s]\n", i + 1, seatChoice[i]);
     }
     
 
