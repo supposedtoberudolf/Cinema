@@ -92,7 +92,7 @@ int main() {
     int index = 0;
 
     // START PROGRAM
-    
+
     pressToContinue();
 
     seatQuantity = getUserWatcherQuantity();
