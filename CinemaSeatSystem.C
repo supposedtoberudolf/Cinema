@@ -4,12 +4,12 @@
 
 void pressToContinue()
 {
-    printf("=============================================\n");
+    printf("===========================================\n");
     printf("            WELCOME TO CINEMAX              \n");
     printf("           IMMERSIVE EXEPRIENCE              \n");
-    printf("=============================================\n");
-    printf("       [ PRESS ENTER TO START ORDER ]       \n");
-    printf("=============================================\n");
+    printf("===========================================\n");
+    printf("         [ PRESS ENTER TO START ]       \n");
+    printf("===========================================\n");
 
     while (getchar() != '\n');
     system("cls");
